@@ -78,13 +78,14 @@ This project is built using a modern and efficient full-stack web development ap
 ### 📦 Installation & Setup
 ---
 ### ✨ Key Features
-✅ Browse food items and categories
-✅ Add items to cart & place orders
-✅ Responsive design – works on mobile, tablet, and desktop
-✅ Full CRUD operations (Create, Read, Update, Delete)
-✅ REST API for food items and orders
-✅ Database storage with MongoDB
-✅ Modern and clean UI/UX design
+
+- [x] Browse food items and categories
+- [x] Add items to cart & place orders
+- [x] Responsive design – works on mobile, tablet, and desktop
+- [x] Full CRUD operations (Create, Read, Update, Delete)
+- [x] REST API for food items and orders
+- [x] Database storage with MongoDB
+- [x] Modern and clean UI/UX design
 
 ---
 ### 📸 Screenshots 
