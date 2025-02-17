@@ -1,0 +1,81 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.start-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 25px;
+}
+
+.start-page-logo {
+  width: 210px;
+  height: 187px;
+}
+
+.start-page-title {
+  font-family: var(--third-family);
+  font-weight: 800;
+  font-size: 34px;
+  color: var(--yellow-base);
+}
+
+.start-page-title span {
+  font-weight: 700;
+  color: var(--font-2);
+}
+
+.start-page-text {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
+  color: var(--font-2);
+}
+
+.start-page-link {
+  border-radius: 30px;
+  width: 207px;
+  height: 45px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: capitalize;
+  /* text-align: center; */
+  color: var(--orange-base);
+  background: var(--yellow-base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.start-page-link:hover {
+  background: var(--yellow-base-hover);
+}
+
+@media screen and (min-width: 768px) {
+  .start-page-title {
+    font-size: 32px;
+  }
+
+  .start-page-text {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .start-page-title {
+    font-size: 40px;
+  }
+
+  .start-page-text {
+    font-size: 20px;
+  }
+}

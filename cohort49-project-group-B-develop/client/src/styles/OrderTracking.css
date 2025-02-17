@@ -1,0 +1,71 @@
+.order-tracking {
+}
+.order-tracking-title {
+  margin-top: 70px;
+  margin-bottom: 33px;
+  text-align: center;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--font-2);
+}
+
+.order-tracking-wrap {
+  padding: 40px 46px;
+  background-color: var(--font-2);
+  border-radius: 30px;
+}
+.order-tracking-text {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--font);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.order-tracking-counter {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 40px;
+  color: var(--orange-base);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.pizza-animation {
+  margin: 20px auto;
+  width: 100px;
+  height: 100px;
+  font-size: 4rem;
+  animation: spinPizza 2s linear infinite; /* Dönen animasyon */
+}
+
+@keyframes spinPizza {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.order-tracking-button {
+  display: block;
+  width: 160px;
+  padding: 10px 0;
+  background-color: var(--orange-base);
+  color: var(--font-2);
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin: 0 auto;
+}
+
+.order-tracking-button:hover {
+  background-color: var(--orange-dark);
+}

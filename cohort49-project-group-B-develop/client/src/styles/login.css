@@ -1,0 +1,119 @@
+.login-wrap {
+  border-radius: 30px;
+  background: #f5f5f5;
+  padding: 54px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 24px;
+  text-transform: capitalize;
+  color: var(--font);
+  margin-bottom: 19px;
+}
+
+.login-text {
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 100%;
+  color: #252525;
+  margin-bottom: 46px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.login-form label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--font);
+  gap: 10px;
+}
+
+.login-form-input {
+  border-radius: 13px;
+  border: none;
+  outline: none;
+  padding-left: 15px;
+  height: 45px;
+  background: var(--yellow-2);
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 70%;
+  color: var(--font);
+}
+
+.login-form-button {
+  width: 207px;
+  height: 45px;
+  background: var(--orange-base);
+  border-radius: 25px;
+  border: none;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 24px;
+  text-transform: capitalize;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 25px auto;
+}
+
+.login-status {
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
+  color: var(--font);
+}
+
+.login-footer {
+  font-family: var(--font-family);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 100%;
+  text-align: center;
+  color: var(--font);
+}
+
+.login-footer a {
+  color: var(--orange-base);
+}
+
+.toggle-password {
+  position: absolute;
+  right: 20px;
+  top: 45px;
+  cursor: pointer;
+  width: 25px;
+  height: 25px;
+}
+
+@media screen and (min-width: 768px) {
+  .login-title {
+    font-size: 32px;
+  }
+  .login-text {
+    font-size: 18px;
+  }
+
+  .login-footer {
+    font-size: 18px;
+  }
+}

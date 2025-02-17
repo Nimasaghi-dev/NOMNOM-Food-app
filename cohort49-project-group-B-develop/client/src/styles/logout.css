@@ -1,0 +1,22 @@
+.logout-btn {
+  border: 1px solid var(--orange-base);
+  border-radius: 100px;
+  background: var(--orange-base);
+  width: 133px;
+  height: 36px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 118%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease-in-out;
+}
+
+.logout-btn:hover {
+  background: var(--orange-dark);
+}

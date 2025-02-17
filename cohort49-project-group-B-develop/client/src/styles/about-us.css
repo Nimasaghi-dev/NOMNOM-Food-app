@@ -1,0 +1,27 @@
+.about-us {
+}
+.about-us-header {
+  margin-top: 70px;
+  margin-bottom: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.about-us-title {
+  text-align: center;
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--font-2);
+}
+.about-us-text-container {
+  background-color: var(--font-2);
+  border-radius: 30px;
+  padding: 40px;
+}
+.about-us-text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--font);
+}

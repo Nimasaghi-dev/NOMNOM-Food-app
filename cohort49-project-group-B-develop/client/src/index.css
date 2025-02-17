@@ -1,0 +1,103 @@
+@import "modern-normalize/modern-normalize.css";
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&display=swap");
+
+:root {
+  --yellow-base: #f5cb58;
+  --yellow-base-hover: #f3e9b5;
+  --yellow-2: #f3e9b5;
+  --orange-base: #e95322;
+  --orange-dark: #d94e1f;
+  --orange-2: #ffdecf;
+  --font: #391713;
+  --font-2: #f8f8f8;
+}
+
+:root {
+  --font-family: "League Spartan", sans-serif;
+  --second-family: "Inter", sans-serif;
+  --third-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: var(--font-family), sans-serif;
+  background-color: var(--yellow-base);
+  color: var(--font);
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+a {
+  text-decoration: none;
+  color: currentColor;
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding-left: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.App {
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  min-width: 375px;
+}
+
+@media screen and (min-width: 768px) {
+  .App {
+    min-width: 768px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .App {
+    min-width: 1024px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .App {
+    width: 1440px;
+  }
+}
