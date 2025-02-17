@@ -73,6 +73,23 @@ This project is built using a modern and efficient full-stack web development ap
 - ESLint & Prettier – Enforcing consistent coding standards across frontend and backend.
 
 ---
+### 🧑‍💻 Authors
+---
+### 📦 Installation & Setup
+---
+### ✨ Key Features
+✅ Browse food items and categories
+✅ Add items to cart & place orders
+✅ Responsive design – works on mobile, tablet, and desktop
+✅ Full CRUD operations (Create, Read, Update, Delete)
+✅ REST API for food items and orders
+✅ Database storage with MongoDB
+✅ Modern and clean UI/UX design
+
+---
+### 📸 Screenshots 
+
+---
 ## Project folder structure
 ```
 │   README.md
