@@ -74,7 +74,7 @@ This project is built using a modern and efficient full-stack web development ap
 
 ---
 ## Project folder structure
-
+```
 │   README.md
 │
 └───cohort49-project-group-B-develop
@@ -391,4 +391,5 @@ This project is built using a modern and efficient full-stack web development ap
             │
             └───__testUtils__
                     dbMock.js
-                    userMocks.js
+                    userMocks.js 
+```
