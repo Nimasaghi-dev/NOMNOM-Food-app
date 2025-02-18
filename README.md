@@ -76,6 +76,24 @@ This project is built using a modern and efficient full-stack web development ap
 ### 🧑‍💻 Authors
 ---
 ### 📦 Installation & Setup
+```
+# Clone the repository
+git clone https://github.com/Nimasaghi-dev/NOMNOM-Food-app.git
+
+# Navigate into the project folder
+cd NOMNOM-Food-app
+
+# Install dependencies (both frontend & backend)
+npm install
+
+# Run the development server
+npm start
+
+# For backend, if applicable:
+cd backend
+npm install
+npm run dev
+```
 ---
 ### ✨ Key Features
 
