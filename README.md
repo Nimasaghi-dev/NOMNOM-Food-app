@@ -1,431 +1,511 @@
-# NOMNOM - Online Food Ordering Web Application
----
-## 🚀 Project Overview
+# NOMNOM — Online Food Ordering App
 
-NOMNOM is a full-stack online food ordering application that allows users to browse menus, place orders, and manage their cart seamlessly. Built with a modern UI design, it is fully responsive across all devices.
+A full-stack food ordering web application built with the MERN stack. Users can browse restaurant menus, filter by category, add items to a cart, check out with a choice of payment method, and track their order on a live map with a countdown timer.
 
-## 🛠️ Technologies Used
-
-This project is built using a modern and efficient full-stack web development approach. Below are the key technologies and tools used in the frontend, backend, testing, and development process:
-
-### 🖥️ Frontend (Client)
-
-- React – Component-based library for building user interfaces.
-
-- Context API – State management for global application state.
-
-- CSS – Custom styles for a responsive and visually appealing design.
-
-- Jest – Unit testing framework for React components.
-
-- React Testing Library – Testing utilities for React components.
-
-- Cypress – End-to-end testing framework.
-
-- Webpack – Module bundler for optimizing the build process.
-
-- Babel – JavaScript compiler to ensure compatibility across browsers.
-
-- ESLint – Linting tool to maintain code quality.
-
-- Prettier – Code formatter for consistent style.
-
-### 🧑‍💻 Backend (Server)
-
-- Node.js – JavaScript runtime environment.
-
-- Express.js – Web application framework for building REST APIs.
-
-- MongoDB (Mongoose) – NoSQL database with object data modeling (ODM).
-
-- dotenv – Environment variable management.
-
-- JWT (JSON Web Tokens) – Secure authentication mechanism.
-
-- Custom Middleware – Authentication and request-handling utilities.
-
-- Jest – Unit testing framework for backend logic.
-
-- ESLint – Linting tool to ensure backend code quality.
-
-### 🧪 Testing
-
-- Jest – Comprehensive unit and integration tests for both frontend and backend.
-
-- React Testing Library – Testing React components in a user-centric way.
-
-- Cypress – End-to-end testing for simulating real user interactions.
-
-### ⚙️ DevOps & CI/CD
-
-- Husky – Pre-commit hooks to ensure code quality before pushing changes.
-
-- GitHub Actions – Continuous Integration (CI) for automated testing and deployment.
-
-- Heroku – Cloud platform for deploying and hosting the application (indicated by Procfile).
-
-### 📦 Additional Tools
-
-- Webpack – Bundling and optimizing frontend assets.
-
-- Babel – Transpiling modern JavaScript for browser compatibility.
-
-- ESLint & Prettier – Enforcing consistent coding standards across frontend and backend.
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?logo=mongodb&logoColor=white)](https://cloud.mongodb.com)
+[![Express](https://img.shields.io/badge/Express-4-000000?logo=express&logoColor=white)](https://expressjs.com)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
 
 ---
-### 🧑‍💻 Authors
+
+## Table of Contents
+
+- [Demo](#demo)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Available Scripts](#available-scripts)
+- [API Reference](#api-reference)
+- [Data Flow](#data-flow)
+- [Database Schema](#database-schema)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Authors](#authors)
+
 ---
-### 📦 Installation & Setup
+
+## Demo
+
+> _Add a screenshot or GIF of the running app here._
+
+| Page | Description |
+| --- | --- |
+| Home | Lists available restaurants with address and Google Maps link |
+| Menu | Browse 35 items across Starters, Pizzas, Desserts and Drinks with category filters |
+| Cart | Slide-out sidebar with item list, totals, and checkout button |
+| Checkout | Delivery address + payment method selector (Cash, Credit Card, PayPal) with live card preview |
+| Order Tracking | Animated countdown (random 20–45 min), progress bar, live Google Maps embed |
+
+---
+
+## Features
+
+- **User authentication** — JWT-based signup and login, tokens stored as cookies
+- **Restaurant listing** — paginated restaurant cards with phone, address, and Google Maps deep links
+- **Menu browsing** — 35 food items across four categories; paginated (6 per page); filter tabs
+- **Shopping cart** — global state via React Context; persisted to `localStorage`; badge count on cart icon
+- **Add-to-cart feedback** — button changes to "✓ Added!" with a toast notification
+- **Checkout flow** — address input, order summary, payment method selection
+- **Payment methods** — Cash on Delivery, Credit/Debit Card (with live 3-D flip card preview), PayPal
+- **Order tracking** — random estimated delivery time, animated progress bar, Google Maps iframe embed
+- **Fully responsive** — mobile-first CSS, tested at 375 px, 768 px, 1024 px, 1440 px
+
+---
+
+## Tech Stack
+
+### Frontend
+
+| Tool | Purpose |
+| --- | --- |
+| React 19 | UI component library |
+| React Router DOM 7 | Client-side routing |
+| Webpack 5 + Babel | Bundling and transpilation |
+| React Context API | Global cart and search state |
+| React Toastify | Toast notifications |
+| Custom CSS | Styling (no CSS framework) |
+
+### Backend
+
+| Tool | Purpose |
+| --- | --- |
+| Node.js + Express 4 | REST API server |
+| Mongoose 8 | MongoDB ODM |
+| JSON Web Tokens | Stateless authentication |
+| bcrypt | Password hashing (12 rounds) |
+| cookie-parser | JWT cookie parsing |
+| cors | Cross-origin request handling |
+| dotenv | Environment variable loading |
+
+### Database
+
+| Tool | Purpose |
+| --- | --- |
+| MongoDB Atlas | Cloud-hosted NoSQL database |
+| 5 collections | users, items, orders, restaurants, reviews |
+
+### Dev and Testing
+
+| Tool | Purpose |
+| --- | --- |
+| Jest + React Testing Library | Unit and integration tests |
+| Cypress | End-to-end tests |
+| ESLint + Prettier | Code quality and formatting |
+| Husky | Pre-commit hooks |
+| GitHub Actions | CI code-style checks |
+| concurrently | Run client and server together |
+
+---
+
+## Project Structure
+
 ```
-# Clone the repository
+NOMNOM-Food-app/
+└── cohort49-project-group-B-develop/
+    ├── client/                        # React frontend
+    │   ├── public/index.html
+    │   └── src/
+    │       ├── components/            # Reusable UI components
+    │       │   ├── AvailableRestaurants.jsx
+    │       │   ├── CartItem.jsx
+    │       │   ├── Filters.jsx
+    │       │   ├── Item.jsx
+    │       │   ├── MenuList.jsx
+    │       │   ├── Nav.jsx
+    │       │   └── ...
+    │       ├── context/
+    │       │   └── CartContext.jsx    # Global cart state
+    │       ├── hooks/
+    │       │   └── useFetch.js        # Centralised API hook
+    │       ├── pages/
+    │       │   ├── Auth/              # Login & Signup
+    │       │   ├── Checkout/          # Checkout + payment
+    │       │   ├── Home/              # Restaurant listing
+    │       │   ├── Menu/              # Menu + filters
+    │       │   ├── OrderCarts/        # Cart sidebar
+    │       │   ├── OrderTracking/     # Timer + map
+    │       │   └── StartPage.jsx
+    │       └── styles/                # Per-page CSS files
+    │
+    ├── server/                        # Express backend
+    │   └── src/
+    │       ├── controllers/           # Business logic
+    │       ├── db/
+    │       │   ├── connectDB.js       # MongoDB connection
+    │       │   └── seedDB.js          # Database seeding script
+    │       ├── middlewares/
+    │       │   └── AuthMiddleware.js  # JWT verification
+    │       ├── models/                # Mongoose schemas
+    │       ├── routes/                # Express route definitions
+    │       └── util/                  # Logging, token helpers
+    │
+    └── cypress/                       # End-to-end tests
+```
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 18 or higher
+- npm 9 or higher
+- A free [MongoDB Atlas](https://cloud.mongodb.com) account
+
+### 1 — Clone the repository
+
+```bash
 git clone https://github.com/Nimasaghi-dev/NOMNOM-Food-app.git
+cd NOMNOM-Food-app/cohort49-project-group-B-develop
+```
 
-# Navigate into the project folder
-cd NOMNOM-Food-app
+### 2 — Set up MongoDB Atlas
 
-# Install dependencies (both frontend & backend)
-npm install
+1. Sign in at [cloud.mongodb.com](https://cloud.mongodb.com)
+2. Create a free **M0** cluster
+3. Under **Database Access**, create a user with a username and password
+4. Under **Network Access**, add your IP (or `0.0.0.0/0` for development)
+5. Click **Connect → Drivers** and copy the connection string
 
-# Run the development server
-npm start
+### 3 — Configure environment variables
 
-# For backend, if applicable:
-cd backend
-npm install
+Create `server/.env` based on the example:
+
+```bash
+cp server/.env.example server/.env
+```
+
+Then open `server/.env` and fill in your values:
+
+```env
+PORT=3000
+MONGODB_URL=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/nomnom?retryWrites=true&w=majority
+TOKEN_KEY=replace_with_a_long_random_secret
+SESSION_SECRET=replace_with_another_long_random_secret
+CLIENT_URL=http://localhost:8080
+NODE_ENV=development
+```
+
+Create the client `.env` (the webpack proxy handles routing so `BASE_SERVER_URL` stays empty in development):
+
+```bash
+cp client/.env.example client/.env
+```
+
+### 4 — Install dependencies
+
+```bash
+npm run setup
+```
+
+This runs `npm install` inside both `client/` and `server/`.
+
+### 5 — Seed the database
+
+Populate MongoDB with one restaurant and 35 menu items:
+
+```bash
+cd server
+npm run seed
+cd ..
+```
+
+### 6 — Start the development servers
+
+```bash
 npm run dev
 ```
----
-### ✨ Key Features
 
-- [x] Browse food items and categories
-- [x] Add items to cart & place orders
-- [x] Responsive design – works on mobile, tablet, and desktop
-- [x] Full CRUD operations (Create, Read, Update, Delete)
-- [x] REST API for food items and orders
-- [x] Database storage with MongoDB
-- [x] Modern and clean UI/UX design
+This starts both servers concurrently:
 
----
-### 📸 Screenshots 
+| Service | URL |
+| --- | --- |
+| React frontend | <http://localhost:8080> |
+| Express API | <http://localhost:3000> |
+
+> The webpack dev server proxies all `/api` requests to port 3000, so there are no CORS issues in development.
 
 ---
-## Project folder structure
+
+## Environment Variables
+
+### Server (`server/.env`)
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `PORT` | Yes | Port the Express server listens on |
+| `MONGODB_URL` | Yes | MongoDB Atlas connection string |
+| `TOKEN_KEY` | Yes | Secret used to sign JWT tokens (32+ random characters) |
+| `SESSION_SECRET` | Yes | Secret for Express session (used by OAuth flows) |
+| `CLIENT_URL` | Yes | Frontend URL allowed by CORS (`http://localhost:8080` in dev) |
+| `NODE_ENV` | Yes | `development` locally, `production` on Heroku |
+| `GOOGLE_CLIENT_ID` | No | Only needed for Google OAuth login |
+| `GOOGLE_CLIENT_SECRET` | No | Only needed for Google OAuth login |
+
+### Client (`client/.env`)
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `BASE_SERVER_URL` | `""` | Backend base URL. Leave empty in development (webpack proxy is used). Set to your Heroku URL in production. |
+
+---
+
+## Available Scripts
+
+Run from the root `cohort49-project-group-B-develop/` directory:
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start client and server concurrently in watch mode |
+| `npm run setup` | Install all dependencies (client + server) |
+| `npm test` | Run Jest unit tests for client and server |
+| `npm run test:cypress` | Run Cypress end-to-end tests (headless) |
+| `npm run cypress` | Open Cypress interactive test runner |
+| `npm run lint` | ESLint check for client and server |
+| `npm run autofix` | Auto-fix ESLint and Prettier issues |
+| `npm run code-style-check` | Prettier + ESLint check (used in CI) |
+| `npm run build:client` | Production webpack build |
+
+Run from `server/`:
+
+| Command | Description |
+| --- | --- |
+| `npm run seed` | Clear and re-seed the database |
+| `npm run dev` | Start Express with nodemon |
+| `npm start` | Start Express for production |
+
+---
+
+## API Reference
+
+All endpoints are prefixed with `/api`.
+
+### Authentication
+
+| Method | Endpoint | Body | Description |
+| --- | --- | --- | --- |
+| `POST` | `/api/signup` | `{ email, username, password }` | Create a new account. Returns JWT cookie. |
+| `POST` | `/api/login` | `{ email, password }` | Log in. Returns JWT cookie. |
+| `POST` | `/api/` | — | Verify JWT cookie. Returns `{ status, user }`. |
+
+### Menu
+
+| Method | Endpoint | Query Params | Description |
+| --- | --- | --- | --- |
+| `GET` | `/api/menu` | `page`, `limit` | All menu items (paginated, default 6/page) |
+| `GET` | `/api/menu/starters` | `page`, `limit` | Items with category `starter` |
+| `GET` | `/api/menu/pizzas` | `page`, `limit` | Items with category `main_dish` |
+| `GET` | `/api/menu/desserts` | `page`, `limit` | Items with category `desserts` |
+| `GET` | `/api/menu/drinks` | `page`, `limit` | Items with category `drinks` |
+
+All menu responses: `{ success: true, result: [...], totalPages, currentPage }`
+
+### Restaurants
+
+| Method | Endpoint | Description |
+| --- | --- | --- |
+| `GET` | `/api/restaurants` | List all restaurants |
+
+Response: `{ success: true, result: [...] }`
+
+### Orders
+
+| Method | Endpoint | Body | Description |
+| --- | --- | --- | --- |
+| `GET` | `/api/order` | — | List all orders |
+| `POST` | `/api/order` | `{ items, total_amount, address, paymentMethod }` | Create a new order |
+| `PUT` | `/api/order/:id` | Partial order fields | Update an order |
+| `DELETE` | `/api/order/:id` | — | Delete an order |
+
+`POST` response: `{ success: true, result: <order> }`
+
+---
+
+## Data Flow
+
 ```
-│   README.md
+Browser (React, :8080)
 │
-└───cohort49-project-group-B-develop
-    │   .gitignore
-    │   .prettierrc.json
-    │   cypress.config.js
-    │   DEV.md
-    │   package-lock.json
-    │   package.json
-    │   Procfile
-    │   README.md
-    │
-    ├───.github
-    │   └───workflows
-    │           client-code-style-check.yml
-    │           server-code-style-check.yml
-    │
-    ├───.husky
-    │       pre-commit
-    │
-    ├───.vscode
-    │       settings.json
-    │
-    ├───client
-    │   │   .babelrc
-    │   │   .env.example
-    │   │   .eslintrc.js
-    │   │   jest.config.js
-    │   │   package-lock.json
-    │   │   package.json
-    │   │   setupTests.js
-    │   │   webpack.config.js
-    │   │
-    │   ├───public
-    │   │       index.html
-    │   │
-    │   ├───src
-    │   │   │   App.jsx
-    │   │   │   AppWrapper.jsx
-    │   │   │   index.css
-    │   │   │   index.jsx
-    │   │   │
-    │   │   ├───components
-    │   │   │   │   AuthHeader.jsx
-    │   │   │   │   AvailableRestaurants.jsx
-    │   │   │   │   BackBtn.jsx
-    │   │   │   │   CartItem.jsx
-    │   │   │   │   Filters.jsx
-    │   │   │   │   Footer.jsx
-    │   │   │   │   Input.jsx
-    │   │   │   │   Item.jsx
-    │   │   │   │   LoadingSpinner.jsx
-    │   │   │   │   LogIn.jsx
-    │   │   │   │   LogoutBtn.jsx
-    │   │   │   │   MenuList.jsx
-    │   │   │   │   Nav.jsx
-    │   │   │   │   Nav.testid.js
-    │   │   │   │   SearchBar.jsx
-    │   │   │   │   SignUp.jsx
-    │   │   │   │
-    │   │   │   └───__tests__
-    │   │   │           Nav.test.js
-    │   │   │
-    │   │   ├───context
-    │   │   │       CartContext.jsx
-    │   │   │       SearchContext.jsx
-    │   │   │
-    │   │   ├───data
-    │   │   │       PizzaData.js
-    │   │   │
-    │   │   ├───hooks
-    │   │   │   │   useFetch.js
-    │   │   │   │
-    │   │   │   └───__tests__
-    │   │   │           useFetch.test.js
-    │   │   │
-    │   │   ├───img
-    │   │   │       1.jpg
-    │   │   │       10.jpg
-    │   │   │       11.jpg
-    │   │   │       12.jpg
-    │   │   │       13.jpg
-    │   │   │       14.jpg
-    │   │   │       15.jpg
-    │   │   │       16.jpg
-    │   │   │       17.jpg
-    │   │   │       18.jpg
-    │   │   │       19.jpg
-    │   │   │       2.jpg
-    │   │   │       20.jpg
-    │   │   │       21.jpg
-    │   │   │       22.jpg
-    │   │   │       23.jpg
-    │   │   │       24.jpg
-    │   │   │       25.jpg
-    │   │   │       26.jpg
-    │   │   │       27.jpg
-    │   │   │       28.jpg
-    │   │   │       29.jpg
-    │   │   │       3.jpg
-    │   │   │       30.jpg
-    │   │   │       31.jpg
-    │   │   │       32.jpg
-    │   │   │       33.jpg
-    │   │   │       34.jpg
-    │   │   │       35.jpg
-    │   │   │       4.jpg
-    │   │   │       5.jpg
-    │   │   │       6.jpg
-    │   │   │       7.jpg
-    │   │   │       8.jpg
-    │   │   │       9.jpg
-    │   │   │       back-icon.png
-    │   │   │       Card.svg
-    │   │   │       cart.svg
-    │   │   │       Desserts.svg
-    │   │   │       Drinks.svg
-    │   │   │       eye-close.svg
-    │   │   │       eye-open.svg
-    │   │   │       home.jpg
-    │   │   │       logo.png
-    │   │   │       Meals.svg
-    │   │   │       order-card.svg
-    │   │   │       Pizzas.svg
-    │   │   │       Starters.svg
-    │   │   │       trash-icon.svg
-    │   │   │       Vegan.svg
-    │   │   │
-    │   │   ├───pages
-    │   │   │   │   AboutUs.jsx
-    │   │   │   │   StartPage.jsx
-    │   │   │   │
-    │   │   │   ├───Auth
-    │   │   │   │       Login.jsx
-    │   │   │   │       Signup.jsx
-    │   │   │   │
-    │   │   │   ├───Checkout
-    │   │   │   │       Checkout.jsx
-    │   │   │   │
-    │   │   │   ├───Home
-    │   │   │   │   │   Home.jsx
-    │   │   │   │   │   Home.testid.js
-    │   │   │   │   │
-    │   │   │   │   └───__tests__
-    │   │   │   │           Home.test.js
-    │   │   │   │
-    │   │   │   ├───Menu
-    │   │   │   │       Menu.jsx
-    │   │   │   │
-    │   │   │   ├───OrderCarts
-    │   │   │   │       OrderCart.jsx
-    │   │   │   │
-    │   │   │   ├───OrderTracking
-    │   │   │   │       OrderTracking.jsx
-    │   │   │   │
-    │   │   │   ├───SignIn
-    │   │   │   │       SignIn.jsx
-    │   │   │   │
-    │   │   │   └───User
-    │   │   │       │   CreateUser.jsx
-    │   │   │       │   CreateUser.testid.js
-    │   │   │       │   UserList.jsx
-    │   │   │       │   UserList.testid.js
-    │   │   │       │
-    │   │   │       └───__tests__
-    │   │   │               CreateUser.test.js
-    │   │   │               UserList.test.js
-    │   │   │
-    │   │   ├───styles
-    │   │   │       about-us.css
-    │   │   │       authHeader.css
-    │   │   │       checkout.css
-    │   │   │       filters.css
-    │   │   │       footer.css
-    │   │   │       home.css
-    │   │   │       LoadingSpinner.css
-    │   │   │       login.css
-    │   │   │       logout.css
-    │   │   │       menu.css
-    │   │   │       nav.css
-    │   │   │       OrderTracking.css
-    │   │   │       signup.css
-    │   │   │       startPage.css
-    │   │   │
-    │   │   ├───util
-    │   │   │   │   changeBodyColor.jsx
-    │   │   │   │   clearLS.js
-    │   │   │   │   createTestIdFilePath.js
-    │   │   │   │
-    │   │   │   └───__tests__
-    │   │   │           createTestIdFilePath.test.js
-    │   │   │
-    │   │   ├───__tests__
-    │   │   │       App.test.js
-    │   │   │
-    │   │   └───__testUtils__
-    │   │           fetchMocks.js
-    │   │           fetchUserMocks.js
-    │   │
-    │   └───__mocks__
-    │           fileMock.js
-    │           styleMock.js
-    │
-    ├───cypress
-    │   ├───e2e
-    │   │   ├───examples
-    │   │   │   ├───1-getting-started
-    │   │   │   │       todo.spec.example.js
-    │   │   │   │
-    │   │   │   └───2-advanced-examples
-    │   │   │           actions.spec.example.js
-    │   │   │           aliasing.spec.example.js
-    │   │   │           assertions.spec.example.js
-    │   │   │           connectors.spec.example.js
-    │   │   │           cookies.spec.example.js
-    │   │   │           cypress_api.spec.example.js
-    │   │   │           files.spec.example.js
-    │   │   │           local_storage.spec.example.js
-    │   │   │           location.spec.example.js
-    │   │   │           misc.spec.example.js
-    │   │   │           navigation.spec.example.js
-    │   │   │           network_requests.spec.example.js
-    │   │   │           querying.spec.example.js
-    │   │   │           spies_stubs_clocks.spec.example.js
-    │   │   │           traversal.spec.example.js
-    │   │   │           utilities.spec.example.js
-    │   │   │           viewport.spec.example.js
-    │   │   │           waiting.spec.example.js
-    │   │   │           window.spec.example.js
-    │   │   │
-    │   │   ├───Home
-    │   │   │       home.spec.js
-    │   │   │
-    │   │   ├───Navigation
-    │   │   │       navigation.spec.js
-    │   │   │
-    │   │   └───User
-    │   │           createuser.spec.js
-    │   │           userlist.spec.js
-    │   │
-    │   ├───fixtures
-    │   │       example.json
-    │   │
-    │   ├───plugins
-    │   │       index.js
-    │   │
-    │   └───support
-    │           commands.js
-    │           e2e.js
-    │
-    └───server
-        │   .env.example
-        │   .eslintrc.cjs
-        │   babel.config.cjs
-        │   jest.config.js
-        │   package-lock.json
-        │   package.json
-        │
-        └───src
-            │   app.js
-            │   index.js
-            │   testRouter.js
-            │
-            ├───controllers
-            │       auth.js
-            │       authController.js
-            │       menu.js
-            │       restaurants.js
-            │       user.js
-            │
-            ├───data
-            │       item.js
-            │       order.js
-            │       restaurant.js
-            │       review.js
-            │       user.js
-            │
-            ├───db
-            │       connectDB.js
-            │       seedDB.js
-            │
-            ├───middlewares
-            │       AuthMiddleware.js
-            │
-            ├───models
-            │       Item.js
-            │       Order.js
-            │       Restaurants.js
-            │       Reviews.js
-            │       User.js
-            │
-            ├───routes
-            │       auth.js
-            │       authRoute.js
-            │       menu.js
-            │       orderRoutes.js
-            │       restaurants.js
-            │       user.js
-            │
-            ├───util
-            │   │   logging.js
-            │   │   SecretToken.js
-            │   │   validateAllowedFields.js
-            │   │   validationErrorMessage.js
-            │   │
-            │   └───__tests__
-            │           logging.test.js
-            │           validateAllowedFields.test.js
-            │           validationErrorMessage.test.js
-            │
-            ├───__tests__
-            │       createUser.test.js
-            │       user.test.js
-            │
-            └───__testUtils__
-                    dbMock.js
-                    userMocks.js 
+│  User fills form → performFetch("/signup")
+│  URL: http://localhost:8080/api/signup
+│           │
+│           │  webpack devServer proxy forwards to :3000
+│           ▼
+Express (:3000)
+│  POST /api/signup
+│  → authController.Signup()
+│    → User.findOne({ email })        ← MongoDB: users
+│    → bcrypt.hash(password, 12)
+│    → User.create({ email, username, password })
+│    → createSecretToken(user._id)    ← signs JWT with TOKEN_KEY
+│    → res.cookie("token", jwt)
+│    → res.json({ success: true, user })
+│           │
+│           ▼
+React
+  useFetch sees success: true → onSuccess() → navigate("/home")
 ```
+
+**Complete ordering flow:**
+
+```
+Browse Restaurants → Click "Check the menu"
+  → Menu page fetches GET /api/menu
+  → User clicks "Add to cart"
+    → CartContext.addToCart(item)
+    → localStorage updated
+    → Cart badge increments
+  → User opens cart sidebar
+  → User clicks "Checkout" → /checkout
+  → User enters address + selects payment method
+  → User clicks "Place Order"
+    → POST /api/order { items, total_amount, address, paymentMethod }
+    → Order.create() saved to MongoDB
+    → { success: true } returned
+    → address saved to localStorage("deliveryAddress")
+    → navigate("/order-tracking")
+  → OrderTracking reads address, shows Google Maps embed
+  → Random 20–45 min countdown timer starts
+```
+
+---
+
+## Database Schema
+
+### `users`
+
+```js
+{
+  email:      String  (required, unique, lowercase),
+  username:   String  (required, unique),
+  password:   String  (required, bcrypt-hashed),
+  orders:     [String],
+  reviews:    Number,
+  created_at: String,
+  updated_at: String
+}
+```
+
+### `items` (menu)
+
+```js
+{
+  Restaurants_id: ObjectId -> restaurants,
+  food_name:      String,
+  description:    String,
+  price:          Number,
+  category:       "starter" | "main_dish" | "desserts" | "drinks",
+  reviews:        [ObjectId -> reviews],
+  imgId:          Number  (1-35, maps to /img/{n}.jpg)
+}
+```
+
+### `orders`
+
+```js
+{
+  restaurant_id:  ObjectId -> restaurants  (optional),
+  total_amount:   Number,
+  status:         "pending" | "on the way" | "completed" | "delivered"  (default: "pending"),
+  items: [{
+    id:       ObjectId,
+    name:     String,
+    price:    Number,
+    quantity: Number,
+    imgId:    Number
+  }],
+  address:        String,
+  paymentMethod:  String  (default: "Cash")
+}
+```
+
+### `restaurants`
+
+```js
+{
+  name:    String,
+  address: String,
+  phone:   String,
+  email:   String (unique),
+  cuisine: String
+}
+```
+
+### `reviews`
+
+```js
+{
+  restaurant_id: ObjectId -> restaurants,
+  rating:        Number (1-5),
+  comment:       String
+}
+```
+
+---
+
+## Testing
+
+### Unit tests (Jest + React Testing Library)
+
+```bash
+# Run all tests
+npm test
+
+# Watch mode
+cd client && npm run test:watch
+cd server && npm run test:watch
+
+# Coverage report
+cd client && npm run test:coverage
+cd server && npm run test:coverage
+```
+
+### End-to-end tests (Cypress)
+
+Cypress uses a **separate database** to avoid touching real data. Before running E2E tests, point `MONGODB_URL` in `server/.env` to a database named `cypressDatabase`:
+
+```env
+MONGODB_URL=mongodb+srv://<user>:<password>@<cluster>.mongodb.net/cypressDatabase?...
+```
+
+```bash
+# Headless run (CI)
+npm run test:cypress
+
+# Interactive runner
+npm run cypress
+```
+
+---
+
+## Deployment
+
+The project is configured for **Heroku** deployment via the included `Procfile`.
+
+### Steps
+
+1. Create a Heroku app and link your GitHub repository
+2. Set all [environment variables](#environment-variables) in **Heroku → Settings → Config Vars**
+3. Set `NODE_ENV=production` and `BASE_SERVER_URL` to your Heroku app URL
+4. Push to `main` — Heroku runs `heroku-postbuild` which installs dependencies and builds the React bundle
+5. The Express server serves the built React app as static files in production
+
+```
+Procfile:  web: npm run start
+```
+
+---
+
+## Authors
+
+**Nima Saghi** — [GitHub](https://github.com/Nimasaghi-dev)
+
+---
+
+## License
+
+This project is licensed under the **ISC License**.
