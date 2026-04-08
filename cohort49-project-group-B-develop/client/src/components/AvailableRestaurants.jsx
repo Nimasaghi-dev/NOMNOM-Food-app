@@ -1,60 +1,49 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 import pizza from "../img/home.jpg";
 import fake from "../img/1.jpg";
-import { Link } from "react-router-dom";
 
 function AvailableRestaurants() {
   const [restaurants, setRestaurants] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [loading, setLoading] = useState(true);
 
-  // Number of restaurants per page
+  // One restaurant card per page; the last page also shows the "Coming soon" card
   const itemsPerPage = 1;
 
-  // Fetch restaurants from the backend API
+  const onSuccess = (data) => {
+    setRestaurants(data.result);
+  };
+
+  const { isLoading, error, performFetch } = useFetch(
+    "/restaurants",
+    onSuccess,
+  );
+
+  // Fetch restaurants once when the component first renders
   useEffect(() => {
-    const fetchRestaurants = async () => {
-      try {
-        const response = await axios.get("/api/restaurants");
-        setRestaurants(response.data);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
+    performFetch();
+  }, []);
 
-    fetchRestaurants();
-  }, []); // Only runs once when the component mounts
-
-  // Pagination logic
   const totalPages = Math.ceil((restaurants.length + 1) / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentRestaurants = restaurants.slice(
-    indexOfFirstItem,
-    indexOfLastItem,
-  );
-
-  // Handle page change
-  // const goToPage = (pageNumber) => {
-  //   setCurrentPage(pageNumber);
-  // };
+  const currentRestaurants = restaurants.slice(indexOfFirstItem, indexOfLastItem);
 
   const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Could not load restaurants. Please try again later.</div>;
   }
 
   return (
@@ -65,7 +54,6 @@ function AvailableRestaurants() {
         straight to your door.
       </p>
 
-      {/* Display the current restaurants */}
       <ul className="restaurants-list">
         {currentRestaurants.map((restaurant) => (
           <li key={restaurant._id} className="restaurants-list-item">
@@ -75,6 +63,7 @@ function AvailableRestaurants() {
               className="restaurants-list-item-img"
             />
             <h3 className="restaurants-list-item-title">{restaurant.name}</h3>
+            {/* Clicking the address opens it in Google Maps */}
             <a
               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(restaurant.address)}`}
               target="_blank"
@@ -97,16 +86,16 @@ function AvailableRestaurants() {
             </Link>
           </li>
         ))}
-        {/* Add the fake "Coming soon" only on the last page */}
+
+        {/* Show the placeholder card only on the last page */}
         {currentPage === totalPages && (
           <li className="restaurants-list-fake">
-            <img src={fake} className="restaurants-list-fake-img" />
+            <img src={fake} className="restaurants-list-fake-img" alt="Coming soon" />
             <p>Coming soon</p>
           </li>
         )}
       </ul>
 
-      {/* Pagination controls */}
       <div className="restaurant-pagination">
         <button
           onClick={prevPage}
@@ -115,19 +104,6 @@ function AvailableRestaurants() {
         >
           Previous
         </button>
-        {/* Display page numbers */}
-        {/* {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => goToPage(index + 1)}
-            style={{
-              fontWeight: currentPage === index + 1 ? "bold" : "normal",
-            }}
-          >
-            {index + 1}
-          </button>
-        ))} */}
-
         <button
           className="restaurant-pagination-btn"
           onClick={nextPage}

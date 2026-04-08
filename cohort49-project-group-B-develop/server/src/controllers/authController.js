@@ -18,7 +18,8 @@ const Signup = async (req, res, next) => {
       createdAt,
     });
 
-    const token = createSecretToken(password);
+    // Sign the token with the user's unique DB id, not the password
+    const token = createSecretToken(user._id);
 
     res.cookie("token", token, {
       withCredentials: true,

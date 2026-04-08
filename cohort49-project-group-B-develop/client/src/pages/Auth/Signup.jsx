@@ -8,30 +8,33 @@ import eyeOpen from "../../img/eye-open.svg";
 import eyeClosed from "../../img/eye-close.svg";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  // Called by useFetch when the server responds with success: true
   const onSuccess = () => {
     setEmail("");
     setPassword("");
     setUsername("");
-
+    // Short delay so the user sees any success feedback before being redirected
     setTimeout(() => {
       navigate("/login");
     }, 300);
   };
+
   const { isLoading, error, performFetch, cancelFetch } = useFetch(
     "/signup",
     onSuccess,
   );
 
+  // Cancel any in-flight request if the component unmounts (e.g. user navigates away)
   useEffect(() => {
     return cancelFetch;
   }, []);
-
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -39,18 +42,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      email,
-      password,
-      username,
-    };
-
     performFetch({
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ email, password, username }),
     });
   };
 
@@ -112,7 +107,7 @@ const Login = () => {
           </p>
 
           <button type="submit" className="signup-button">
-            Login
+            Sign Up
           </button>
         </form>
         {statusComponent}
@@ -124,4 +119,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

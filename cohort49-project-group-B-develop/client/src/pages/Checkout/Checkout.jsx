@@ -1,58 +1,76 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useCart } from "../../context/CartContext";
+import useFetch from "../../hooks/useFetch";
 import BackBtn from "../../components/BackBtn";
 import "../../styles/checkout.css";
 import card from "../../img/Card.svg";
-//add navigate tracking page inside checkout
 
 const Checkout = () => {
   const navigate = useNavigate();
-
   const { cartItems } = useCart();
   const [address, setAddress] = useState("");
-  const [paymentMethod] = useState("Cash"); // Fixed payment method for now
+  const [paymentMethod] = useState("Cash");
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price, 0);
 
-  const handleSubmit = async (event) => {
+  // Navigate to order tracking only after the server confirms the order was saved
+  const onOrderSuccess = () => {
+    toast.success("Order submitted successfully!");
     navigate("/order-tracking");
+  };
 
+  const { isLoading, error, performFetch, cancelFetch } = useFetch(
+    "/order",
+    onOrderSuccess,
+  );
+
+  // Cancel any in-flight fetch if the user navigates away mid-submit
+  useEffect(() => {
+    return cancelFetch;
+  }, []);
+
+  // Show a toast whenever the API call fails
+  useEffect(() => {
+    if (error) {
+      toast.error("Error submitting the order. Please try again.");
+    }
+  }, [error]);
+
+  const handleSubmit = (event) => {
     event.preventDefault();
-    if (!address) {
+
+    if (!address.trim()) {
       toast.error("Please provide your address");
       return;
     }
 
-    // prepare the order data
-    const orderData = {
-      cartItems,
-      totalAmount,
-      address,
-      paymentMethod,
-      restaurant_id: "exampleRestaurantId", // Replace with actual restaurant ID
-    };
-
-    try {
-      // Make API call to submit the order
-      const response = await fetch("/api/orders", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(orderData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit order");
-      }
-
-      toast.success("Order submitted successfully!");
-      // Optionally, clear the cart, navigate to an order confirmation page, etc.
-    } catch (error) {
-      toast.error("Error submitting the order. Please try again.");
+    if (cartItems.length === 0) {
+      toast.error("Your cart is empty");
+      return;
     }
+
+    // Map cart items to the shape the Order model expects
+    const orderItems = cartItems.map((item) => ({
+      id: item._id || item.id,
+      name: item.food_name,
+      price: item.price,
+      quantity: item.quantity || 1,
+      imgId: item.imgId,
+    }));
+
+    performFetch({
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: orderItems,
+        // Use snake_case to match the Order model field name
+        total_amount: totalAmount,
+        address,
+        paymentMethod,
+      }),
+    });
   };
 
   return (
@@ -82,12 +100,10 @@ const Checkout = () => {
               <li className="checkout-order-summary-item" key={index}>
                 <p className="checkout-order-summary-item-name">
                   {item.food_name}
-                </p>{" "}
-                {/* Display item name */}
+                </p>
                 <p className="checkout-order-summary-item-price">
                   €{item.price.toFixed(2)}
                 </p>
-                {/* Display item price */}
               </li>
             ))}
           </ul>
@@ -109,12 +125,13 @@ const Checkout = () => {
           </div>
         </div>
 
+        {/* Disable the button while the request is in progress to prevent double-submit */}
         <button
           type="submit"
-          onClick={handleSubmit}
           className="checkout-submit-btn"
+          disabled={isLoading}
         >
-          Order Now
+          {isLoading ? "Placing Order..." : "Order Now"}
         </button>
       </form>
     </div>
