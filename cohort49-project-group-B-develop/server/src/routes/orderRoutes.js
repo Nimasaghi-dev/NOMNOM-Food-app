@@ -13,40 +13,27 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Add new order
+// Create a new order
 router.post("/", async (req, res) => {
   try {
-    const {
-      restaurant_id,
-      total_amount,
-      status,
-      category,
-      cartItems,
-      paymentMethod,
-      address,
-    } = req.body;
-
-    const items = cartItems.map((item) => ({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      quantity: item.quantity,
-      imgId: item.imgId,
-    }));
+    const { restaurant_id, total_amount, items, paymentMethod, address } =
+      req.body;
 
     const newOrder = new Order({
       restaurant_id,
       total_amount,
-      status,
-      category,
-      items,
+      items: items || [],
       paymentMethod,
       address,
+      // status defaults to "pending" as defined in the Order model
     });
+
     await newOrder.save();
-    res.status(201).json(newOrder);
+
+    // useFetch on the client checks for success: true before calling onSuccess
+    res.status(201).json({ success: true, result: newOrder });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, msg: error.message });
   }
 });
 
