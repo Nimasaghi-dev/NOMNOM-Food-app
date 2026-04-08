@@ -21,9 +21,13 @@ const Signup = async (req, res, next) => {
     // Sign the token with the user's unique DB id, not the password
     const token = createSecretToken(user._id);
 
+    // httpOnly: false so the client JS can read the cookie for auth checks
+    // sameSite: "lax" allows the cookie to be sent on same-site navigations
+    // maxAge: 3 days in milliseconds, matching the JWT expiry
     res.cookie("token", token, {
-      withCredentials: true,
       httpOnly: false,
+      sameSite: "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
     });
     res
       .status(201)
@@ -56,8 +60,9 @@ const Login = async (req, res, next) => {
 
     const token = createSecretToken(user._id);
     res.cookie("token", token, {
-      withCredentials: true,
       httpOnly: false,
+      sameSite: "lax",
+      maxAge: 3 * 24 * 60 * 60 * 1000,
     });
     res
       .status(201)

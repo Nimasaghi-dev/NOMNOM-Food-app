@@ -1,8 +1,10 @@
 .order-tracking {
+  padding-bottom: 40px;
 }
+
 .order-tracking-title {
   margin-top: 70px;
-  margin-bottom: 33px;
+  margin-bottom: 24px;
   text-align: center;
   font-family: var(--font-family);
   font-weight: 700;
@@ -11,42 +13,119 @@
 }
 
 .order-tracking-wrap {
-  padding: 40px 46px;
+  padding: 32px 24px;
   background-color: var(--font-2);
   border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
+
+/* Animated "On the way" pill */
+.order-tracking-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 14px;
+  padding: 6px 16px;
+  border-radius: 100px;
+}
+
+/* Pulsing green dot inside the pill */
+.order-tracking-pulse {
+  width: 10px;
+  height: 10px;
+  background: #43a047;
+  border-radius: 50%;
+  animation: pulse 1.4s ease-in-out infinite;
+  /* Promote to compositor layer so transform + opacity animate on the GPU */
+  will-change: transform, opacity;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.5); opacity: 0.5; }
+}
+
 .order-tracking-text {
   font-family: var(--font-family);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
   color: var(--font);
   text-align: center;
-  margin-bottom: 20px;
 }
+
+/* Large countdown display */
 .order-tracking-counter {
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 40px;
+  font-size: 52px;
   color: var(--orange-base);
-  text-align: center;
-  margin-bottom: 20px;
+  letter-spacing: 2px;
 }
 
+/* Progress bar that shrinks as time passes */
+.order-tracking-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #f0f0f0;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.order-tracking-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange-base), var(--yellow-base));
+  border-radius: 100px;
+  transition: width 1s linear;
+}
+
+/* Spinning pizza */
 .pizza-animation {
-  margin: 20px auto;
-  width: 100px;
-  height: 100px;
   font-size: 4rem;
-  animation: spinPizza 2s linear infinite; /* Dönen animasyon */
+  animation: spinPizza 3s linear infinite;
+  will-change: transform;
 }
 
 @keyframes spinPizza {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Map section */
+.order-tracking-map-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-tracking-map-title {
+  font-family: var(--font-family);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--font);
+}
+
+.order-tracking-map-address {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  color: #666;
+}
+
+.order-tracking-map {
+  width: 100%;
+  height: 260px;
+  border: none;
+  border-radius: 16px;
+  /* Small lift shadow so the map feels embedded */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
 }
 
 .order-tracking-button {
@@ -62,10 +141,24 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s;
-  margin: 0 auto;
+  transition: background-color 0.3s;
+  margin-top: 8px;
 }
 
 .order-tracking-button:hover {
   background-color: var(--orange-dark);
+}
+
+@media screen and (min-width: 768px) {
+  .order-tracking-wrap {
+    padding: 40px 48px;
+  }
+
+  .order-tracking-counter {
+    font-size: 64px;
+  }
+
+  .order-tracking-map {
+    height: 340px;
+  }
 }

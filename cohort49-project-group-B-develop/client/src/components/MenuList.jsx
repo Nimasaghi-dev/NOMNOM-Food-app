@@ -5,6 +5,7 @@ import { useCart } from "../context/CartContext";
 import useFetch from "../hooks/useFetch";
 import { Outlet, useParams, useSearchParams } from "react-router-dom";
 import LoadingSpinner from "./LoadingSpinner";
+import { toast } from "react-toastify";
 
 const MenuList = () => {
   const { filter } = useParams();
@@ -13,8 +14,11 @@ const MenuList = () => {
   const page = parseInt(searchParams.get("page")) || 1;
   const limit = parseInt(searchParams.get("limit")) || 6;
   const [totalPages, setTotalPages] = useState(0);
-
   const [items, setItems] = useState(null);
+
+  // Track which item id was just added so we can show a brief "Added!" state
+  const [addedItemId, setAddedItemId] = useState(null);
+
   const { isLoading, error, performFetch } = useFetch(
     `/menu/${filter ? filter : ""}?page=${page}&limit=${limit}`,
     (response) => {
@@ -31,11 +35,23 @@ const MenuList = () => {
       performFetch();
       setLoadingDelay(false);
     }, 500);
-
     return () => clearTimeout(timer);
   }, [filter, page, limit]);
 
   const { addToCart } = useCart();
+
+  const handleAddToCart = (item) => {
+    addToCart(item);
+    toast.success(`${item.food_name} added to cart!`, {
+      position: "bottom-right",
+      autoClose: 1800,
+      hideProgressBar: true,
+    });
+
+    // Show "Added!" on the button for 1.2 seconds, then revert
+    setAddedItemId(item._id);
+    setTimeout(() => setAddedItemId(null), 1200);
+  };
 
   const handlePageChange = (newPage) => {
     setSearchParams({ page: newPage, limit });
@@ -52,18 +68,16 @@ const MenuList = () => {
       <ul className="menu-list">
         {items &&
           items.map((item) => {
+            const isAdded = addedItemId === item._id;
             return (
-              <li
-                key={item._id}
-                data-elementid={item._id}
-                className="menu-list-item"
-              >
+              <li key={item._id} data-elementid={item._id} className="menu-list-item">
                 <Item item={item} />
                 <button
-                  onClick={() => addToCart(item)}
-                  className="menu-list-add-btn"
+                  onClick={() => handleAddToCart(item)}
+                  className={`menu-list-add-btn ${isAdded ? "added" : ""}`}
+                  disabled={isAdded}
                 >
-                  Add to cart
+                  {isAdded ? "✓ Added!" : "Add to cart"}
                 </button>
               </li>
             );
@@ -100,7 +114,7 @@ const MenuList = () => {
 };
 
 MenuList.propTypes = {
-  filter: PropTypes.string.isRequired,
+  filter: PropTypes.string,
 };
 
 export default MenuList;

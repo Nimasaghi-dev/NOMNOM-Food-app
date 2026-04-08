@@ -15,9 +15,10 @@ const Checkout = () => {
 
   const totalAmount = cartItems.reduce((total, item) => total + item.price, 0);
 
-  // Navigate to order tracking only after the server confirms the order was saved
   const onOrderSuccess = () => {
-    toast.success("Order submitted successfully!");
+    // Store address so OrderTracking can show it on the map
+    localStorage.setItem("deliveryAddress", address);
+    toast.success("Order placed successfully!");
     navigate("/order-tracking");
   };
 
@@ -26,12 +27,10 @@ const Checkout = () => {
     onOrderSuccess,
   );
 
-  // Cancel any in-flight fetch if the user navigates away mid-submit
   useEffect(() => {
     return cancelFetch;
   }, []);
 
-  // Show a toast whenever the API call fails
   useEffect(() => {
     if (error) {
       toast.error("Error submitting the order. Please try again.");
@@ -51,7 +50,6 @@ const Checkout = () => {
       return;
     }
 
-    // Map cart items to the shape the Order model expects
     const orderItems = cartItems.map((item) => ({
       id: item._id || item.id,
       name: item.food_name,
@@ -65,7 +63,6 @@ const Checkout = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         items: orderItems,
-        // Use snake_case to match the Order model field name
         total_amount: totalAmount,
         address,
         paymentMethod,
@@ -98,9 +95,7 @@ const Checkout = () => {
           <ul className="checkout-order-summary-list">
             {cartItems.map((item, index) => (
               <li className="checkout-order-summary-item" key={index}>
-                <p className="checkout-order-summary-item-name">
-                  {item.food_name}
-                </p>
+                <p className="checkout-order-summary-item-name">{item.food_name}</p>
                 <p className="checkout-order-summary-item-price">
                   €{item.price.toFixed(2)}
                 </p>
@@ -116,16 +111,11 @@ const Checkout = () => {
         <div className="checkout-payment-method-wrap">
           <h3 className="checkout-payment-method-title">Payment Method</h3>
           <div>
-            <img
-              src={card}
-              alt="Card"
-              className="checkout-payment-method-icon"
-            />
+            <img src={card} alt="Card" className="checkout-payment-method-icon" />
             <p className="checkout-payment-method-text">{paymentMethod}</p>
           </div>
         </div>
 
-        {/* Disable the button while the request is in progress to prevent double-submit */}
         <button
           type="submit"
           className="checkout-submit-btn"

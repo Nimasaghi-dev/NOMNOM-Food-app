@@ -45,8 +45,18 @@ module.exports = {
       BASE_SERVER_URL: "",
     }),
   ],
-  // To tell the dev server that everything should go back to index.html
   devServer: {
+    // Send all unknown routes to index.html so React Router handles them
     historyApiFallback: true,
+    // Forward /api and /auth requests to the Express server in development.
+    // This avoids CORS issues and mirrors the production setup where both
+    // the client and server are served from the same origin.
+    proxy: [
+      {
+        context: ["/api", "/auth"],
+        target: "http://localhost:3000",
+        changeOrigin: true,
+      },
+    ],
   },
 };
