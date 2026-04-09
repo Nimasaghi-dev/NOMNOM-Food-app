@@ -36,6 +36,8 @@ A full-stack food ordering web application built with the MERN stack. Users can 
 
 ![App Screenshot 2](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%202026-04-08%20224805.png)
 
+![App Screenshot 3](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%202026-04-09%20222049.png)
+
 | Page | Description |
 | --- | --- |
 | Home | Lists available restaurants with address and Google Maps link |
