@@ -362,6 +362,10 @@
 /* ── Submit button ────────────────────────────────────────────────────────── */
 
 .checkout-submit-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   border-radius: 52px;
   height: 52px;
   background: var(--orange-base);

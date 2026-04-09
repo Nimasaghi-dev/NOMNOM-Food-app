@@ -70,7 +70,7 @@ const OrderTracking = () => {
           <span role="img" aria-label="pizza">🍕</span>
         </div>
 
-        <p className="order-tracking-text">Your pizza is on the way!</p>
+        <p className="order-tracking-text">Your order is on the way!</p>
 
         {/* Google Maps embed — only shown when an address is available */}
         {mapSrc && (
