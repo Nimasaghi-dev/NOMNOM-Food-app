@@ -30,7 +30,11 @@ A full-stack food ordering web application built with the MERN stack. Users can 
 
 ## Demo
 
-> _Add a screenshot or GIF of the running app here._
+![Menu Page](cohort49-project-group-B-develop/client/src/img/screenshots/NomNom-menu.png)
+
+![App Screenshot](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%20(333).png)
+
+![App Screenshot 2](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%202026-04-08%20224805.png)
 
 | Page | Description |
 | --- | --- |
