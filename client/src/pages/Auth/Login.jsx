@@ -65,7 +65,7 @@ const Login = () => {
     <div className="login">
       <AuthHeader text="Log In" />
       <div className="login-wrap">
-        <h3 className="login-title">Welcome</h3>
+        <h2 className="login-title">Welcome</h2>
         <p className="login-text">
           Ready to satisfy your cravings? Log in to explore your favorite
           restaurants, browse menus, and place your next order in just a few

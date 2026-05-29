@@ -7,7 +7,7 @@ const ChangeBodyColor = () => {
   useEffect(() => {
     switch (location.pathname) {
       case "/":
-        document.body.style.backgroundColor = "#e95322";
+        document.body.style.backgroundColor = "#c8401a";
         break;
 
       default:

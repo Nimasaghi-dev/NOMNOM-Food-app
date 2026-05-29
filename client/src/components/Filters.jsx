@@ -30,7 +30,7 @@ const Filters = () => {
                 <img
                   className="filter-button-img"
                   src={icons[filters.indexOf(filter)]}
-                  alt={filter}
+                  alt=""
                 />
               </div>
               {filter}

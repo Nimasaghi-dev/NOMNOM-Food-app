@@ -18,7 +18,7 @@
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 28px;
-  color: var(--font-2);
+  color: var(--font);
 }
 
 .checkout-form {
@@ -130,7 +130,10 @@
   border: 2px solid #e8e8e8;
   background: #fafafa;
   cursor: pointer;
-  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    transform 0.15s;
   text-align: left;
   width: 100%;
 }
@@ -176,8 +179,14 @@
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── 3-D flip credit card preview ────────────────────────────────────────── */
@@ -326,7 +335,9 @@
   font-size: 16px;
   color: var(--font);
   outline: none;
-  transition: border-color 0.2s, background 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
 }
 
 .checkout-card-input:focus {
@@ -375,7 +386,9 @@
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: background 0.25s, transform 0.15s;
+  transition:
+    background 0.25s,
+    transform 0.15s;
   margin-top: 4px;
 }
 

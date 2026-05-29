@@ -123,8 +123,8 @@ const Checkout = () => {
         total_amount: totalAmount,
         address,
         // Send the human-readable label so it's readable in the DB
-        paymentMethod:
-          PAYMENT_METHODS.find((m) => m.id === selectedMethod)?.label,
+        paymentMethod: PAYMENT_METHODS.find((m) => m.id === selectedMethod)
+          ?.label,
       }),
     });
   };
@@ -133,14 +133,13 @@ const Checkout = () => {
     <div className="checkout">
       <div className="checkout-header">
         <BackBtn />
-        <h2 className="checkout-title">Checkout</h2>
+        <h1 className="checkout-title">Checkout</h1>
       </div>
 
       <form onSubmit={handleSubmit} className="checkout-form">
-
         {/* ── Delivery address ── */}
         <section className="checkout-section">
-          <h3 className="checkout-section-title">📍 Delivery Address</h3>
+          <h2 className="checkout-section-title">📍 Delivery Address</h2>
           <input
             className="checkout-address-input"
             id="address"
@@ -154,7 +153,7 @@ const Checkout = () => {
 
         {/* ── Order summary ── */}
         <section className="checkout-section">
-          <h3 className="checkout-section-title">🧾 Order Summary</h3>
+          <h2 className="checkout-section-title">🧾 Order Summary</h2>
           <ul className="checkout-order-summary-list">
             {cartItems.map((item, index) => (
               <li className="checkout-order-summary-item" key={index}>
@@ -177,7 +176,7 @@ const Checkout = () => {
 
         {/* ── Payment method ── */}
         <section className="checkout-section">
-          <h3 className="checkout-section-title">💳 Payment Method</h3>
+          <h2 className="checkout-section-title">💳 Payment Method</h2>
 
           <div className="checkout-payment-methods">
             {PAYMENT_METHODS.map((method) => (
@@ -189,8 +188,12 @@ const Checkout = () => {
                 }`}
                 onClick={() => setSelectedMethod(method.id)}
               >
-                <span className="checkout-payment-card-icon">{method.icon}</span>
-                <span className="checkout-payment-card-label">{method.label}</span>
+                <span className="checkout-payment-card-icon">
+                  {method.icon}
+                </span>
+                <span className="checkout-payment-card-label">
+                  {method.label}
+                </span>
                 {/* Checkmark shown on the selected method */}
                 {selectedMethod === method.id && (
                   <span className="checkout-payment-card-check">✓</span>
@@ -202,7 +205,6 @@ const Checkout = () => {
           {/* Credit card details — only visible when "card" is selected */}
           {selectedMethod === "card" && (
             <div className="checkout-card-details">
-
               {/* Live card preview */}
               <div
                 className={`credit-card-preview ${cardFlipped ? "flipped" : ""}`}
@@ -262,9 +264,7 @@ const Checkout = () => {
                     type="text"
                     placeholder="Name on card"
                     value={cardName}
-                    onChange={(e) =>
-                      setCardName(e.target.value.toUpperCase())
-                    }
+                    onChange={(e) => setCardName(e.target.value.toUpperCase())}
                   />
                 </label>
 

@@ -10,7 +10,7 @@
   font-weight: 700;
   font-size: 30px;
   text-transform: capitalize;
-  color: var(--font-2);
+  color: var(--font);
 }
 
 .restaurants {
@@ -149,7 +149,7 @@
   line-height: 118%;
   letter-spacing: -0.01em;
   text-align: center;
-  color: #fff;
+  color: var(--font);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -123,7 +123,7 @@
   line-height: 118%;
   letter-spacing: -0.01em;
   text-align: center;
-  color: #fff;
+  color: var(--font);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -132,7 +132,7 @@
 
 .menu-pagination-button:hover {
   background: var(--yellow-base-hover);
-  color: #fff;
+  color: var(--font);
 }
 
 .menu-pagination-button:disabled {
@@ -216,9 +216,15 @@
 }
 
 @keyframes badgePop {
-  0%   { transform: scale(0); }
-  70%  { transform: scale(1.2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+  70% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .cart-sidebar {

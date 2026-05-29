@@ -12,7 +12,7 @@
   font-family: var(--font-family);
   font-weight: 700;
   font-size: 28px;
-  color: var(--font-2);
+  color: var(--font);
 }
 .about-us-text-container {
   background-color: var(--font-2);

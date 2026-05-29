@@ -25,8 +25,8 @@ const Item = ({ item }) => {
         className="menu-list-item-image"
       />
       <div className="menu-list-item-title-price">
-        <h3 className="menu-list-item-title">{food_name}</h3>
-        <h4 className="menu-list-item-price">{price} €</h4>
+        <h2 className="menu-list-item-title">{food_name}</h2>
+        <p className="menu-list-item-price">{price} €</p>
       </div>
       <p className="menu-list-item-description">{description}</p>
     </div>
