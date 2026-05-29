@@ -9,6 +9,14 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     publicPath: "/",
+    filename: "[name].[contenthash].js",
+    clean: true,
+  },
+  optimization: {
+    // Split node_modules into a cacheable vendor chunk and keep the
+    // webpack runtime separate, shrinking the main bundle.
+    splitChunks: { chunks: "all" },
+    runtimeChunk: "single",
   },
   module: {
     rules: [
