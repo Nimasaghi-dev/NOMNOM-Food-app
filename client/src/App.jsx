@@ -1,9 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-// import LogIn from "./components/LogIn"; // Corrected import path
 import MenuList from "./components/MenuList";
 import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup"; // Corrected import path
+import Signup from "./pages/Auth/Signup";
 import Checkout from "./pages/Checkout/Checkout";
 import Home from "./pages/Home/Home";
 import Menu from "./pages/Menu/Menu";

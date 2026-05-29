@@ -15,3 +15,10 @@ coverage
 # Cypress videos from our headless runs should not be pushed to github
 cypress/videos
 cypress/screenshots
+
+# Windows creates these files
+desktop.ini
+
+# Claude Code local files should never be pushed
+.claude/
+CLAUDE.md

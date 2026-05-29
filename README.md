@@ -30,13 +30,13 @@ A full-stack food ordering web application built with the MERN stack. Users can 
 
 ## Demo
 
-![Menu Page](cohort49-project-group-B-develop/client/src/img/screenshots/NomNom-menu.png)
+![Menu Page](client/src/img/screenshots/NomNom-menu.png)
 
-![App Screenshot](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%20(333).png)
+![App Screenshot](client/src/img/screenshots/Screenshot%20(333).png)
 
-![App Screenshot 2](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%202026-04-08%20224805.png)
+![App Screenshot 2](client/src/img/screenshots/Screenshot%202026-04-08%20224805.png)
 
-![App Screenshot 3](cohort49-project-group-B-develop/client/src/img/screenshots/Screenshot%202026-04-09%20222049.png)
+![App Screenshot 3](client/src/img/screenshots/Screenshot%202026-04-09%20222049.png)
 
 | Page | Description |
 | --- | --- |
@@ -111,45 +111,44 @@ A full-stack food ordering web application built with the MERN stack. Users can 
 
 ```
 NOMNOM-Food-app/
-└── cohort49-project-group-B-develop/
-    ├── client/                        # React frontend
-    │   ├── public/index.html
-    │   └── src/
-    │       ├── components/            # Reusable UI components
-    │       │   ├── AvailableRestaurants.jsx
-    │       │   ├── CartItem.jsx
-    │       │   ├── Filters.jsx
-    │       │   ├── Item.jsx
-    │       │   ├── MenuList.jsx
-    │       │   ├── Nav.jsx
-    │       │   └── ...
-    │       ├── context/
-    │       │   └── CartContext.jsx    # Global cart state
-    │       ├── hooks/
-    │       │   └── useFetch.js        # Centralised API hook
-    │       ├── pages/
-    │       │   ├── Auth/              # Login & Signup
-    │       │   ├── Checkout/          # Checkout + payment
-    │       │   ├── Home/              # Restaurant listing
-    │       │   ├── Menu/              # Menu + filters
-    │       │   ├── OrderCarts/        # Cart sidebar
-    │       │   ├── OrderTracking/     # Timer + map
-    │       │   └── StartPage.jsx
-    │       └── styles/                # Per-page CSS files
-    │
-    ├── server/                        # Express backend
-    │   └── src/
-    │       ├── controllers/           # Business logic
-    │       ├── db/
-    │       │   ├── connectDB.js       # MongoDB connection
-    │       │   └── seedDB.js          # Database seeding script
-    │       ├── middlewares/
-    │       │   └── AuthMiddleware.js  # JWT verification
-    │       ├── models/                # Mongoose schemas
-    │       ├── routes/                # Express route definitions
-    │       └── util/                  # Logging, token helpers
-    │
-    └── cypress/                       # End-to-end tests
+├── client/                        # React frontend
+│   ├── public/index.html
+│   └── src/
+│       ├── components/            # Reusable UI components
+│       │   ├── AvailableRestaurants.jsx
+│       │   ├── CartItem.jsx
+│       │   ├── Filters.jsx
+│       │   ├── Item.jsx
+│       │   ├── MenuList.jsx
+│       │   ├── Nav.jsx
+│       │   └── ...
+│       ├── context/
+│       │   └── CartContext.jsx    # Global cart state
+│       ├── hooks/
+│       │   └── useFetch.js        # Centralised API hook
+│       ├── pages/
+│       │   ├── Auth/              # Login & Signup
+│       │   ├── Checkout/          # Checkout + payment
+│       │   ├── Home/              # Restaurant listing
+│       │   ├── Menu/              # Menu + filters
+│       │   ├── OrderCarts/        # Cart sidebar
+│       │   ├── OrderTracking/     # Timer + map
+│       │   └── StartPage.jsx
+│       └── styles/                # Per-page CSS files
+│
+├── server/                        # Express backend
+│   └── src/
+│       ├── controllers/           # Business logic
+│       ├── db/
+│       │   ├── connectDB.js       # MongoDB connection
+│       │   └── seedDB.js          # Database seeding script
+│       ├── middlewares/
+│       │   └── AuthMiddleware.js  # JWT verification
+│       ├── models/                # Mongoose schemas
+│       ├── routes/                # Express route definitions
+│       └── util/                  # Logging, token helpers
+│
+└── cypress/                       # End-to-end tests
 ```
 
 ---
@@ -166,7 +165,7 @@ NOMNOM-Food-app/
 
 ```bash
 git clone https://github.com/Nimasaghi-dev/NOMNOM-Food-app.git
-cd NOMNOM-Food-app/cohort49-project-group-B-develop
+cd NOMNOM-Food-app
 ```
 
 ### 2 — Set up MongoDB Atlas
@@ -262,7 +261,7 @@ This starts both servers concurrently:
 
 ## Available Scripts
 
-Run from the root `cohort49-project-group-B-develop/` directory:
+Run from the repo root:
 
 | Command | Description |
 | --- | --- |
