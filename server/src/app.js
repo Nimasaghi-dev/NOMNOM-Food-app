@@ -4,7 +4,6 @@ import express from "express";
 import cookieParser from "cookie-parser";
 
 import authRouter from "./routes/authRoute.js";
-import userRouter from "./routes/user.js";
 import menuRouter from "./routes/menu.js";
 import orderRouter from "./routes/orderRoutes.js";
 import restaurantsRouter from "./routes/restaurants.js";
@@ -30,9 +29,6 @@ app.use(
 
 // Auth routes: POST /api/signup, POST /api/login, POST /api/ (token verification)
 app.use("/api", authRouter);
-
-// User routes: /api/user/...
-app.use("/api/user", userRouter);
 
 // Menu routes: GET /api/menu, /api/menu/starters, /api/menu/pizzas, etc.
 app.use("/api/menu", menuRouter);

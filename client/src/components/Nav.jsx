@@ -10,7 +10,11 @@ const Nav = () => {
     <nav className="nav">
       <ul className="nav-list">
         <li className="nav-list-item">
-          <Link className="nav-list-link" to="/home">
+          <Link
+            className="nav-list-link"
+            to="/home"
+            data-testid={TEST_ID.linkToHome}
+          >
             Home
           </Link>
         </li>

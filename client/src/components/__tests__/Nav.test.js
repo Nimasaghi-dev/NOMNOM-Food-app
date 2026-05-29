@@ -3,67 +3,49 @@ import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 /**
- * We use the App component to test here as it will do the routing for us.
- * This allows our test to be more user centric!
+ * We render the App so the Nav is exercised through real routing,
+ * keeping the test user-centric. The Nav lives on the Menu page,
+ * which needs the CartProvider.
  */
 import App from "../../App";
+import { CartProvider } from "../../context/CartContext";
 import TEST_ID_HOME from "../../pages/Home/Home.testid";
-import TEST_ID_USER_LIST from "../../pages/User/UserList.testid";
 import TEST_ID_NAV from "../Nav.testid";
-import { getUsersSuccessMock } from "../../__testUtils__/fetchUserMocks";
 
 beforeEach(() => {
   fetch.resetMocks();
+  fetch.mockResponse(JSON.stringify({ success: true, result: [] }));
 });
 
+const renderAt = (path) =>
+  render(
+    <CartProvider>
+      <MemoryRouter initialEntries={[path]}>
+        <App />
+      </MemoryRouter>
+    </CartProvider>,
+  );
+
 describe("Navigation", () => {
-  it("Clicking on the Home link should go to Home page ", async () => {
-    fetch.mockResponseOnce(getUsersSuccessMock());
+  it("Clicking the About Us link should go to the About page", async () => {
+    renderAt("/menu");
 
-    render(
-      <MemoryRouter history={history} initialEntries={["/user"]}>
-        <App />
-      </MemoryRouter>,
-    );
-
-    expect(
-      screen.queryByTestId(TEST_ID_HOME.container),
-    ).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByTestId(TEST_ID_NAV.linkToHome));
-
-    await waitFor(() =>
-      expect(screen.getByTestId(TEST_ID_HOME.container)).toBeInTheDocument(),
-    );
-  });
-
-  it("Clicking on the User link should go to User List page ", async () => {
-    fetch.mockResponseOnce(getUsersSuccessMock());
-
-    render(
-      <MemoryRouter history={history} initialEntries={["/"]}>
-        <App />
-      </MemoryRouter>,
-    );
-
-    expect(
-      screen.queryByTestId(TEST_ID_USER_LIST.container),
-    ).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByTestId(TEST_ID_NAV.linkToUsers));
+    fireEvent.click(await screen.findByTestId(TEST_ID_NAV.linkToAboutUs));
 
     await waitFor(() =>
       expect(
-        screen.getByTestId(TEST_ID_USER_LIST.container),
+        screen.getByRole("heading", { name: /about us/i }),
       ).toBeInTheDocument(),
     );
+  });
 
-    // Wait until data is loaded
+  it("Clicking the Home link should go to the Home page", async () => {
+    renderAt("/menu");
+
+    fireEvent.click(await screen.findByTestId(TEST_ID_NAV.linkToHome));
+
     await waitFor(() =>
-      expect(screen.getByTestId(TEST_ID_USER_LIST.userList)).toHaveAttribute(
-        "data-loaded",
-        "true",
-      ),
+      expect(screen.getByTestId(TEST_ID_HOME.container)).toBeInTheDocument(),
     );
   });
 });

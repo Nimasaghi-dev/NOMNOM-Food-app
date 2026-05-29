@@ -2,7 +2,7 @@ import createTestIdFilePath from "../util/createTestIdFilePath";
 
 const TEST_ID = {
   linkToHome: `${createTestIdFilePath("components", "Nav")}-linkToHome`,
-  linkToUsers: `${createTestIdFilePath("components", "Nav")}-linkToUser`,
+  linkToAboutUs: `${createTestIdFilePath("components", "Nav")}-linkToAboutUs`,
 };
 
 export default TEST_ID;
