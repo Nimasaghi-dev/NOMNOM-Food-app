@@ -50,9 +50,7 @@ const OrderTracking = () => {
           On the way
         </div>
 
-        <p className="order-tracking-text">
-          Estimated delivery time:
-        </p>
+        <p className="order-tracking-text">Estimated delivery time:</p>
 
         {/* Large countdown timer */}
         <h2 className="order-tracking-counter">{formatTime(counter)}</h2>
@@ -67,7 +65,9 @@ const OrderTracking = () => {
 
         {/* Animated pizza icon */}
         <div className="pizza-animation">
-          <span role="img" aria-label="pizza">🍕</span>
+          <span role="img" aria-label="pizza">
+            🍕
+          </span>
         </div>
 
         <p className="order-tracking-text">Your order is on the way!</p>

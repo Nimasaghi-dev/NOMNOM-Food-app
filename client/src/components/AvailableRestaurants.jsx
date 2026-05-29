@@ -28,7 +28,10 @@ function AvailableRestaurants() {
   const totalPages = Math.ceil((restaurants.length + 1) / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentRestaurants = restaurants.slice(indexOfFirstItem, indexOfLastItem);
+  const currentRestaurants = restaurants.slice(
+    indexOfFirstItem,
+    indexOfLastItem,
+  );
 
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
@@ -90,7 +93,11 @@ function AvailableRestaurants() {
         {/* Show the placeholder card only on the last page */}
         {currentPage === totalPages && (
           <li className="restaurants-list-fake">
-            <img src={fake} className="restaurants-list-fake-img" alt="Coming soon" />
+            <img
+              src={fake}
+              className="restaurants-list-fake-img"
+              alt="Coming soon"
+            />
             <p>Coming soon</p>
           </li>
         )}

@@ -70,7 +70,11 @@ const MenuList = () => {
           items.map((item) => {
             const isAdded = addedItemId === item._id;
             return (
-              <li key={item._id} data-elementid={item._id} className="menu-list-item">
+              <li
+                key={item._id}
+                data-elementid={item._id}
+                className="menu-list-item"
+              >
                 <Item item={item} />
                 <button
                   onClick={() => handleAddToCart(item)}
