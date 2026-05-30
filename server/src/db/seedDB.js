@@ -1,41 +1,35 @@
-import mongoose from "mongoose";
-import connectDB from "./connectDB.js";
+import { pathToFileURL } from "url";
+import prisma from "./prisma.js";
 
-import User from "../models/User.js";
-import Item from "../models/Item.js";
-import Order from "../models/Order.js";
-import Restaurant from "../models/Restaurants.js";
-import Review from "../models/Reviews.js";
+// Seeds the menu data (restaurant + items + sample orders) into the database.
+// Exported so the server can auto-seed an empty DB on startup, and reused by
+// the `npm run seed` CLI below. Does NOT touch the User table.
+export const seedDatabase = async () => {
+  // Clear menu-related tables before re-seeding so we start fresh.
+  // Order matters because of foreign keys (orders/reviews/items -> restaurant).
+  await prisma.order.deleteMany();
+  await prisma.review.deleteMany();
+  await prisma.item.deleteMany();
+  await prisma.restaurant.deleteMany();
 
-// Run with: npm run seed (from the server folder)
-const seed = async () => {
-  try {
-    await connectDB();
-
-    // Clear all collections before re-seeding so we start fresh every time
-    await Promise.all([
-      User.deleteMany(),
-      Item.deleteMany(),
-      Order.deleteMany(),
-      Restaurant.deleteMany(),
-      Review.deleteMany(),
-    ]);
-
-    // Step 1: create the restaurant first so we can use its real _id for items and orders
-    const restaurant = await Restaurant.create({
+  // Step 1: create the restaurant first so we can link items/orders to its id.
+  const restaurant = await prisma.restaurant.create({
+    data: {
       name: "La Bella Pizza",
       address: "123 Main Street, Amsterdam, Netherlands",
       phone: "+31 20 123 4567",
       email: "labella.pizza@example.com",
       cuisine: "Italian",
-    });
+    },
+  });
 
-    const restaurantId = restaurant._id;
+  const restaurantId = restaurant.id;
 
-    // Step 2: seed menu items, each linked to the restaurant created above
-    await Item.insertMany([
+  // Step 2: seed menu items, each linked to the restaurant created above.
+  await prisma.item.createMany({
+    data: [
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Fried Calamari",
         description: "Crispy breaded calamari served with marinara sauce",
         price: 9.99,
@@ -43,7 +37,7 @@ const seed = async () => {
         imgId: 1,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Roasted Vegetables",
         description:
           "A selection of seasonal vegetables, roasted to perfection",
@@ -52,7 +46,7 @@ const seed = async () => {
         imgId: 2,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Caprese Salad",
         description:
           "Fresh mozzarella, ripe tomatoes, and basil with a balsamic glaze",
@@ -61,7 +55,7 @@ const seed = async () => {
         imgId: 3,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Garlic Breadsticks",
         description: "Breadsticks served with marinara dipping sauce",
         price: 5.99,
@@ -69,7 +63,7 @@ const seed = async () => {
         imgId: 4,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Buffalo Wings",
         description: "Spicy chicken wings with a side of blue cheese dip",
         price: 10.99,
@@ -77,7 +71,7 @@ const seed = async () => {
         imgId: 5,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Mixed Salad",
         description: "Fresh mixed greens with Italian vinaigrette",
         price: 6.5,
@@ -85,7 +79,7 @@ const seed = async () => {
         imgId: 6,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Bruschetta",
         description: "Mini bruschettas with tomatoes, garlic, and basil",
         price: 7.25,
@@ -93,7 +87,7 @@ const seed = async () => {
         imgId: 7,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Mozzarella Sticks",
         description: "Crispy mozzarella sticks served with marinara sauce",
         price: 8.0,
@@ -101,7 +95,7 @@ const seed = async () => {
         imgId: 8,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Antipasto Platter",
         description: "Italian cured meats, olives, and cheeses",
         price: 12.0,
@@ -109,7 +103,7 @@ const seed = async () => {
         imgId: 9,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Focaccia Bread",
         description: "Homemade focaccia bread with rosemary and olive oil",
         price: 4.99,
@@ -117,7 +111,7 @@ const seed = async () => {
         imgId: 10,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Margherita Pizza",
         description:
           "Classic margherita pizza with fresh mozzarella and basil.",
@@ -126,7 +120,7 @@ const seed = async () => {
         imgId: 11,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Pepperoni Pizza",
         description:
           "Pepperoni pizza with a crispy crust and a rich tomato sauce.",
@@ -135,7 +129,7 @@ const seed = async () => {
         imgId: 12,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Vegetarian Pizza",
         description: "Vegetarian pizza with a variety of fresh vegetables.",
         price: 11.49,
@@ -143,7 +137,7 @@ const seed = async () => {
         imgId: 13,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "BBQ Chicken Pizza",
         description:
           "BBQ chicken pizza with smoky barbecue sauce and tender chicken.",
@@ -152,7 +146,7 @@ const seed = async () => {
         imgId: 14,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Hawaiian Pizza",
         description: "Hawaiian pizza with pineapple and ham on a golden crust.",
         price: 12.49,
@@ -160,7 +154,7 @@ const seed = async () => {
         imgId: 15,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Mushroom Pizza",
         description: "Mushroom pizza with garlic and a blend of rich cheeses.",
         price: 11.99,
@@ -168,7 +162,7 @@ const seed = async () => {
         imgId: 16,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Spicy Sausage Pizza",
         description:
           "Spicy pizza with Italian sausage, jalapenos, and mozzarella.",
@@ -177,7 +171,7 @@ const seed = async () => {
         imgId: 17,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Four Cheese Pizza",
         description:
           "Four-cheese pizza with mozzarella, cheddar, parmesan, and blue cheese.",
@@ -186,7 +180,7 @@ const seed = async () => {
         imgId: 18,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Meat Lover's Pizza",
         description:
           "Meat lover's pizza with pepperoni, sausage, bacon, and ham.",
@@ -195,7 +189,7 @@ const seed = async () => {
         imgId: 19,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Seafood Pizza",
         description: "Seafood pizza with shrimp, mussels, and calamari.",
         price: 17.99,
@@ -203,7 +197,7 @@ const seed = async () => {
         imgId: 20,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Chocolate Cake",
         description:
           "Classic chocolate cake with rich cocoa flavor and creamy frosting.",
@@ -212,7 +206,7 @@ const seed = async () => {
         imgId: 21,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Lemon Cake",
         description:
           "Tart lemon cake with a tangy lemon glaze and fresh berries.",
@@ -221,7 +215,7 @@ const seed = async () => {
         imgId: 22,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Apple Pie",
         description:
           "Freshly baked apple pie with a buttery crust and cinnamon apples.",
@@ -230,7 +224,7 @@ const seed = async () => {
         imgId: 23,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Chocolate Mousse",
         description:
           "Decadent chocolate mousse with whipped cream and chocolate shavings.",
@@ -239,7 +233,7 @@ const seed = async () => {
         imgId: 24,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Strawberry Cheesecake",
         description:
           "Rich cheesecake topped with fresh strawberries and a graham cracker crust.",
@@ -248,7 +242,7 @@ const seed = async () => {
         imgId: 25,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Tiramisu",
         description:
           "Light and fluffy tiramisu with layers of espresso-soaked ladyfingers.",
@@ -257,7 +251,7 @@ const seed = async () => {
         imgId: 26,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Panna Cotta",
         description:
           "Vanilla panna cotta with a rich berry coulis and fresh mint.",
@@ -266,7 +260,7 @@ const seed = async () => {
         imgId: 27,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Crème Brûlée",
         description:
           "Classic crème brûlée with a crispy caramelized sugar top.",
@@ -275,7 +269,7 @@ const seed = async () => {
         imgId: 28,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Chocolate Lava Cake",
         description: "Warm chocolate lava cake with a molten chocolate center.",
         price: 7.99,
@@ -283,7 +277,7 @@ const seed = async () => {
         imgId: 29,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Zeppole",
         description:
           "Crispy fried dough balls drizzled with honey and dusted with powdered sugar.",
@@ -292,7 +286,7 @@ const seed = async () => {
         imgId: 30,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Lemonade",
         description:
           "Refreshing lemonade made with fresh lemons and a touch of mint.",
@@ -301,7 +295,7 @@ const seed = async () => {
         imgId: 31,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Iced Coffee",
         description:
           "A rich and creamy iced coffee made with espresso, milk, and ice.",
@@ -310,7 +304,7 @@ const seed = async () => {
         imgId: 32,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Pina Colada",
         description:
           "A tropical blend of pineapple, coconut, and orange juices.",
@@ -319,7 +313,7 @@ const seed = async () => {
         imgId: 33,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Hot Chocolate",
         description:
           "Smooth and creamy hot chocolate topped with whipped cream and chocolate shavings.",
@@ -328,7 +322,7 @@ const seed = async () => {
         imgId: 34,
       },
       {
-        Restaurants_id: restaurantId,
+        restaurantId,
         food_name: "Mojito",
         description:
           "A classic cocktail made with rum, lime juice, and a hint of sugar.",
@@ -336,39 +330,39 @@ const seed = async () => {
         category: "drinks",
         imgId: 35,
       },
-    ]);
+    ],
+  });
 
-    // Step 3: seed a few sample orders linked to the same restaurant
-    await Order.insertMany([
-      {
-        restaurant_id: restaurantId,
-        total_amount: 45.99,
-        status: "pending",
-        items: [],
-      },
-      {
-        restaurant_id: restaurantId,
-        total_amount: 30.5,
-        status: "completed",
-        items: [],
-      },
-      {
-        restaurant_id: restaurantId,
-        total_amount: 25.75,
-        status: "on the way",
-        items: [],
-      },
-    ]);
+  // Step 3: seed a few sample orders linked to the same restaurant.
+  await prisma.order.createMany({
+    data: [
+      { restaurantId, total_amount: 45.99, status: "pending", items: [] },
+      { restaurantId, total_amount: 30.5, status: "completed", items: [] },
+      { restaurantId, total_amount: 25.75, status: "on the way", items: [] },
+    ],
+  });
+};
 
+// CLI entry point: run with `npm run seed` (from the server folder).
+const runSeedCLI = async () => {
+  try {
+    await prisma.$connect();
+    await seedDatabase();
     // eslint-disable-next-line no-console
     console.log("Database seeded successfully!");
-    mongoose.disconnect();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Seed error:", error.message);
-    mongoose.disconnect();
-    process.exit(1);
+    process.exitCode = 1;
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
-seed();
+// Only run the CLI when this file is executed directly (not when imported).
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  runSeedCLI();
+}

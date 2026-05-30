@@ -1,4 +1,4 @@
-import Item from "../models/Item.js";
+import prisma from "../db/prisma.js";
 import { logError } from "../util/logging.js";
 
 export const getItem = async (req, res, filter) => {
@@ -7,16 +7,24 @@ export const getItem = async (req, res, filter) => {
     const limit = parseInt(req.query.limit) || 6;
     const skip = (page - 1) * limit;
 
-    const filterCriteria = filter ? { category: filter } : {};
+    const where = filter ? { category: filter } : {};
 
-    const items = await Item.find(filterCriteria).skip(skip).limit(limit);
+    const [items, totalItems] = await Promise.all([
+      prisma.item.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { imgId: "asc" },
+      }),
+      prisma.item.count({ where }),
+    ]);
 
-    const totalItems = await Item.countDocuments(filterCriteria);
     const totalPages = Math.ceil(totalItems / limit);
 
     res.status(200).json({
       success: true,
-      result: items,
+      // Expose `_id` so the frontend (which keys items by _id) keeps working.
+      result: items.map((item) => ({ ...item, _id: item.id })),
       totalPages,
       currentPage: page,
     });

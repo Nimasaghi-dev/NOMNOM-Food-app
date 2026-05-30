@@ -9,8 +9,13 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "setup": "npm install",
-    "start": "node ./src/index",
+    "start": "prisma migrate deploy && node ./src/index",
     "dev": "nodemon ./src/index",
+    "postinstall": "prisma generate",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "db:push": "prisma db push",
     "code-style-check": "npm run prettier && npm run lint",
     "pre-commit": "npm run code-style-check",
     "autofix": "npm run lint:fix && npm run prettier:fix",
@@ -34,11 +39,12 @@
     "nodemon": "^3.1.0",
     "prettier": "^3.2.5",
     "prettier-eslint": "^16.3.0",
+    "prisma": "^6.2.1",
     "supertest": "^7.0.0"
   },
   "dependencies": {
+    "@prisma/client": "^6.2.1",
     "bcrypt": "^5.1.1",
-    "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
@@ -46,8 +52,6 @@
     "express-session": "^1.18.1",
     "jsonwebtoken": "^9.0.2",
     "modern-normalize": "^3.0.1",
-    "mongodb-memory-server": "^10.1.0",
-    "mongoose": "^8.3.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0"
   }

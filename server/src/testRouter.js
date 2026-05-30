@@ -1,71 +1,42 @@
 import express from "express";
-import mongoose from "mongoose";
 
-import User from "./models/User.js";
+import prisma from "./db/prisma.js";
 import { logError } from "./util/logging.js";
-import validationErrorMessage from "./util/validationErrorMessage.js";
 
 const testRouter = express.Router();
 
+// Used by Cypress/e2e tests to reset the database to a known state.
+// This router is only mounted when NODE_ENV !== "production" (see index.js),
+// and we double-check here so it can never wipe a production database.
 testRouter.post("/seed", async (req, res) => {
-  if (!process.env.MONGODB_URL.includes("cypressDatabase")) {
-    const msg =
-      "The database you are trying to seed is not the cypress database! Did you forget to change your .env variable?";
+  if (process.env.NODE_ENV === "production") {
+    const msg = "Database seeding is disabled in production.";
     logError(msg);
+    return res.status(400).json({ success: false, msg });
+  }
 
-    res.status(400).json({
-      sucess: false,
-      msg,
-    });
-  } else {
-    await emptyDatabase();
+  try {
+    // Clear everything (FK order matters).
+    await prisma.order.deleteMany();
+    await prisma.review.deleteMany();
+    await prisma.item.deleteMany();
+    await prisma.restaurant.deleteMany();
+    await prisma.user.deleteMany();
 
-    const data = {
-      users: [
-        {
-          name: "Rob",
-          email: "rob@hackyourfuture.net",
-        },
-      ],
-    };
-
-    // Validate users to the database
-    data.users.forEach((user) => {
-      const errorList = 1;
-      if (errorList > 0) {
-        const err = new Error(
-          `Invalid user in seed data. Errors: ${validationErrorMessage(
-            errorList,
-          )}. User attempting to be inserted: ${JSON.stringify(user)}`,
-        );
-
-        logError(err);
-        throw err;
-      }
-    });
-
-    // Add users to the database
-    await User.create(data.users);
-
-    // Fetch to add to the return
-    const finalUsers = await User.find();
-
-    res.status(201).json({
-      success: true,
+    await prisma.user.create({
       data: {
-        users: finalUsers,
+        username: "Rob",
+        email: "rob@hackyourfuture.net",
+        password: "seeded-test-user",
       },
     });
+
+    const users = await prisma.user.findMany();
+    res.status(201).json({ success: true, data: { users } });
+  } catch (error) {
+    logError(error);
+    res.status(500).json({ success: false, msg: error.message });
   }
 });
-
-const emptyDatabase = async () => {
-  const collections = mongoose.connection.collections;
-
-  for (const key in collections) {
-    const collection = collections[key];
-    await collection.deleteMany({});
-  }
-};
 
 export default testRouter;

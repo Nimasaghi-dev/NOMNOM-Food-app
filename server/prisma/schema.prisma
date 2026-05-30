@@ -1,0 +1,83 @@
+// Prisma schema for the NOMNOM Food app (PostgreSQL).
+// Run `npm run prisma:migrate` after editing to update the database + client.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  email      String   @unique
+  username   String   @unique
+  password   String
+  // Order ids the user has placed (kept as a simple string array, as before)
+  orders     String[] @default([])
+  reviews    Int      @default(0)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Restaurant {
+  id        String   @id @default(uuid())
+  name      String
+  address   String
+  phone     String
+  email     String   @unique
+  cuisine   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  items   Item[]
+  orders  Order[]
+  reviews Review[]
+}
+
+model Item {
+  id           String   @id @default(uuid())
+  description  String
+  food_name    String
+  price        Float
+  // "starter" | "main_dish" | "desserts" | "drinks" (kept as String for flexibility)
+  category     String
+  imgId        Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([category])
+}
+
+model Order {
+  id            String   @id @default(uuid())
+  total_amount  Float
+  // "pending" | "completed" | "on the way" | "delivered"
+  status        String   @default("pending")
+  category      String?
+  // Embedded list of ordered items: [{ id, name, price, quantity, imgId }]
+  items         Json     @default("[]")
+  address       String?
+  paymentMethod String   @default("Cash")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  restaurantId  String?
+  restaurant    Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: SetNull)
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+}
