@@ -8,27 +8,32 @@ import TEST_ID from "./Nav.testid";
 const Nav = () => {
   return (
     <nav className="nav">
-      <ul className="nav-list">
-        <li className="nav-list-item">
-          <Link
-            className="nav-list-link"
-            to="/home"
-            data-testid={TEST_ID.linkToHome}
-          >
-            Home
-          </Link>
-        </li>
-        <li className="nav-list-item">
-          <Link
-            className="nav-list-link"
-            to="/about-us"
-            data-testid={TEST_ID.linkToAboutUs}
-          >
-            About Us
-          </Link>
-        </li>
-      </ul>
-      <LogoutBtn />
+      <Link className="nav-brand" to="/home" aria-label="NomNom home">
+        Nom<span>Nom</span>
+      </Link>
+      <div className="nav-actions">
+        <ul className="nav-list">
+          <li className="nav-list-item">
+            <Link
+              className="nav-list-link"
+              to="/home"
+              data-testid={TEST_ID.linkToHome}
+            >
+              Home
+            </Link>
+          </li>
+          <li className="nav-list-item">
+            <Link
+              className="nav-list-link"
+              to="/about-us"
+              data-testid={TEST_ID.linkToAboutUs}
+            >
+              About Us
+            </Link>
+          </li>
+        </ul>
+        <LogoutBtn />
+      </div>
     </nav>
   );
 };
