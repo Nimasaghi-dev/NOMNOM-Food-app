@@ -22,3 +22,7 @@ desktop.ini
 # Claude Code local files should never be pushed
 .claude/
 CLAUDE.md
+
+# Local tool artifacts (Playwright MCP, ad-hoc screenshots)
+.playwright-mcp/
+nomnom-home.png
