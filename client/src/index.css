@@ -12,13 +12,7 @@
   --font-2: #f8f8f8;
 }
 
-/* ==========================================================================
-   Design system tokens
-   Inter is loaded via the Google Fonts @import at the top of this file.
-   Tokens only — no component styles reference these yet.
-   ========================================================================== */
 :root {
-  /* Colors */
   --ds-primary: #ff5a36;
   --ds-primary-dark: #e64a2e;
   --ds-secondary: #1a1a2e;
@@ -28,25 +22,22 @@
   --ds-error: #d32f2f;
   --ds-text-muted: #6b6b76;
 
-  /* Interaction — 12% wash of --ds-primary (#ff5a36) for hover states */
   --ds-hover: rgba(255, 90, 54, 0.12);
 
-  /* Typography */
   --ds-font-sans: "Inter", sans-serif;
 
-  --ds-font-size-h1: 2rem; /* 32px */
+  --ds-font-size-h1: 2rem;
   --ds-font-weight-h1: 700;
 
-  --ds-font-size-h2: 1.5rem; /* 24px */
+  --ds-font-size-h2: 1.5rem;
   --ds-font-weight-h2: 600;
 
-  --ds-font-size-body: 1rem; /* 16px */
+  --ds-font-size-body: 1rem;
   --ds-font-weight-body: 400;
 
-  --ds-font-size-small: 0.875rem; /* 14px */
+  --ds-font-size-small: 0.875rem;
   --ds-font-weight-small: 400;
 
-  /* Spacing — 8px grid */
   --ds-space-1: 8px;
   --ds-space-2: 16px;
   --ds-space-3: 24px;
@@ -55,11 +46,9 @@
   --ds-space-6: 48px;
   --ds-space-8: 64px;
 
-  /* Radius */
   --ds-radius-card: 16px;
   --ds-radius-button: 12px;
 
-  /* Shadows */
   --ds-shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
   --ds-shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
