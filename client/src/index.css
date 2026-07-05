@@ -1,5 +1,5 @@
 @import "modern-normalize/modern-normalize.css";
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
   --yellow-base: #f5cb58;
@@ -10,12 +10,6 @@
   --orange-2: #ffdecf;
   --font: #391713;
   --font-2: #f8f8f8;
-}
-
-:root {
-  --font-family: "League Spartan", sans-serif;
-  --second-family: "Inter", sans-serif;
-  --third-family: "Poppins", sans-serif;
 }
 
 /* ==========================================================================
@@ -68,7 +62,9 @@
 }
 
 body {
-  font-family: var(--font-family), sans-serif;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-body);
   background-color: var(--yellow-base);
   color: var(--font);
   display: flex;
@@ -84,6 +80,16 @@ h6,
 p {
   margin-bottom: 0;
   margin-top: 0;
+}
+
+h1 {
+  font-size: var(--ds-font-size-h1);
+  font-weight: var(--ds-font-weight-h1);
+}
+
+h2 {
+  font-size: var(--ds-font-size-h2);
+  font-weight: var(--ds-font-weight-h2);
 }
 
 a {
@@ -105,7 +111,8 @@ img {
 }
 
 input {
-  font-family: inherit;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
 }
 
 button {
