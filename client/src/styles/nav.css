@@ -19,11 +19,12 @@
 }
 
 .nav-list-item:hover {
-  background-color: #f0f0f0;
+  background-color: var(--ds-surface);
 }
 
 .nav-list-link {
   text-decoration: none;
-  color: #000;
-  font-size: 1.2em;
+  color: var(--ds-secondary);
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
 }
