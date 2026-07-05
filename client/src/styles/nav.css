@@ -3,6 +3,10 @@
   display: flex;
   justify-content: space-between;
   padding: 2em 0;
+  position: relative;
+  z-index: 1;
+  background: var(--ds-surface);
+  box-shadow: var(--ds-shadow-card);
 }
 
 .nav-list {
@@ -19,7 +23,7 @@
 }
 
 .nav-list-item:hover {
-  background-color: var(--ds-surface);
+  background-color: var(--ds-bg);
 }
 
 .nav-list-link {
