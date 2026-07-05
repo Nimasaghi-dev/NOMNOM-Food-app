@@ -7,10 +7,10 @@
 }
 
 .footer p {
-  font-family: var(--font-family);
+  font-family: var(--ds-font-sans);
   font-weight: 300;
-  font-size: 12px;
-  color: var(--font);
+  font-size: var(--ds-font-size-small);
+  color: var(--ds-text-muted);
 }
 
 .footer-link-text {

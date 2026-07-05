@@ -1,10 +1,10 @@
 .logout-btn {
-  border: 1px solid var(--orange-base);
+  border: 1px solid var(--ds-primary);
   border-radius: 100px;
-  background: var(--orange-base);
+  background: var(--ds-primary);
   width: 133px;
   height: 36px;
-  font-family: var(--font-family);
+  font-family: var(--ds-font-sans);
   font-weight: 500;
   font-size: 17px;
   line-height: 118%;
@@ -18,5 +18,5 @@
 }
 
 .logout-btn:hover {
-  background: var(--orange-dark);
+  background: var(--ds-primary-dark);
 }
