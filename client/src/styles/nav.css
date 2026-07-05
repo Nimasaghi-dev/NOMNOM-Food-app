@@ -23,7 +23,7 @@
 }
 
 .nav-list-item:hover {
-  background-color: var(--ds-bg);
+  background-color: var(--ds-hover);
 }
 
 .nav-list-link {

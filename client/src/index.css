@@ -28,6 +28,9 @@
   --ds-error: #d32f2f;
   --ds-text-muted: #6b6b76;
 
+  /* Interaction — 12% wash of --ds-primary (#ff5a36) for hover states */
+  --ds-hover: rgba(255, 90, 54, 0.12);
+
   /* Typography */
   --ds-font-sans: "Inter", sans-serif;
 
