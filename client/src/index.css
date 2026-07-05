@@ -1,5 +1,5 @@
 @import "modern-normalize/modern-normalize.css";
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=League+Spartan:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
   --yellow-base: #f5cb58;
@@ -13,13 +13,50 @@
 }
 
 :root {
-  --font-family: "League Spartan", sans-serif;
-  --second-family: "Inter", sans-serif;
-  --third-family: "Poppins", sans-serif;
+  --ds-primary: #ff5a36;
+  --ds-primary-dark: #e64a2e;
+  --ds-secondary: #1a1a2e;
+  --ds-bg: #fafafa;
+  --ds-surface: #ffffff;
+  --ds-success: #2e7d32;
+  --ds-error: #d32f2f;
+  --ds-text-muted: #6b6b76;
+
+  --ds-hover: rgba(255, 90, 54, 0.12);
+
+  --ds-font-sans: "Inter", sans-serif;
+
+  --ds-font-size-h1: 2rem;
+  --ds-font-weight-h1: 700;
+
+  --ds-font-size-h2: 1.5rem;
+  --ds-font-weight-h2: 600;
+
+  --ds-font-size-body: 1rem;
+  --ds-font-weight-body: 400;
+
+  --ds-font-size-small: 0.875rem;
+  --ds-font-weight-small: 400;
+
+  --ds-space-1: 8px;
+  --ds-space-2: 16px;
+  --ds-space-3: 24px;
+  --ds-space-4: 32px;
+  --ds-space-5: 40px;
+  --ds-space-6: 48px;
+  --ds-space-8: 64px;
+
+  --ds-radius-card: 16px;
+  --ds-radius-button: 12px;
+
+  --ds-shadow-card: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --ds-shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 body {
-  font-family: var(--font-family), sans-serif;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
+  font-weight: var(--ds-font-weight-body);
   background-color: var(--yellow-base);
   color: var(--font);
   display: flex;
@@ -35,6 +72,16 @@ h6,
 p {
   margin-bottom: 0;
   margin-top: 0;
+}
+
+h1 {
+  font-size: var(--ds-font-size-h1);
+  font-weight: var(--ds-font-weight-h1);
+}
+
+h2 {
+  font-size: var(--ds-font-size-h2);
+  font-weight: var(--ds-font-weight-h2);
 }
 
 a {
@@ -56,11 +103,24 @@ img {
 }
 
 input {
-  font-family: inherit;
+  font-family: var(--ds-font-sans);
+  font-size: var(--ds-font-size-body);
 }
 
 button {
   cursor: pointer;
+  font-family: var(--ds-font-sans);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--ds-primary);
+  outline-offset: 2px;
 }
 
 .visually-hidden {
