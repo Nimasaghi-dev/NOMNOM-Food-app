@@ -6,9 +6,11 @@
   align-items: center;
   gap: var(--ds-space-2);
   padding: var(--ds-space-2) var(--ds-space-3);
+  margin-top: var(--ds-space-2);
   position: relative;
   z-index: 1;
   background: var(--ds-surface);
+  border-radius: var(--ds-radius-card);
   box-shadow: var(--ds-shadow-card);
 }
 
